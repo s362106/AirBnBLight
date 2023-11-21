@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\items\house.ts" />
     <None Remove="ClientApp\src\app\items\item.ts" />
     <None Remove="ClientApp\src\app\items\itemform.component.ts" />
     <None Remove="ClientApp\src\app\items\items.component.ts" />
@@ -34,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\items\house.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\items\item.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\items\itemform.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\items\items.component.ts" />
@@ -42,7 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\assets\images\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 
