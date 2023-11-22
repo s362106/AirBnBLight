@@ -26,20 +26,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\items\house.ts" />
-    <None Remove="ClientApp\src\app\items\item.ts" />
-    <None Remove="ClientApp\src\app\items\itemform.component.ts" />
-    <None Remove="ClientApp\src\app\items\items.component.ts" />
-    <None Remove="ClientApp\src\app\items\items.service.ts" />
+    <None Remove="ClientApp\src\app\houses\house.ts" />
+    <None Remove="ClientApp\src\app\houses\houseform.component.ts" />
+    <None Remove="ClientApp\src\app\houses\houses.component.ts" />
+    <None Remove="ClientApp\src\app\houses\houses.service.ts" />
     <None Remove="ClientApp\src\app\shared\convert-to-currency.pipe.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\items\house.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\items\item.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\items\itemform.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\items\items.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\items\items.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\houses\house.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\houses\houses.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\houses\houses.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\houses\houseform.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\convert-to-currency.pipe.ts" />
   </ItemGroup>
 

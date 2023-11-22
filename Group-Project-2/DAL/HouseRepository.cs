@@ -90,7 +90,7 @@ public class HouseRepository : IHouseRepository
             return false;
         }
     }
-
+    /*
     public async Task<IEnumerable<Reservation>?> GetReservations()
     {
         try
@@ -167,6 +167,6 @@ public class HouseRepository : IHouseRepository
             return false;
         }
     }
-
+    */
 }
 

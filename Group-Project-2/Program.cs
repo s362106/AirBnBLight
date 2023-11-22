@@ -9,13 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<ItemDbContext>(options =>
+builder.Services.AddDbContext<HouseDbContext>(options =>
 {
     options.UseSqlite(
-        builder.Configuration["ConnectionStrings:ItemDbContextConnection"]);
+        builder.Configuration["ConnectionStrings:HouseDbContextConnection"]);
 });
 
-builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IHouseRepository, HouseRepository>();
 
 var loggerConfiguration = new LoggerConfiguration()
     .MinimumLevel.Information() // levels: Trace< Information < Warning < Erorr < Fatal

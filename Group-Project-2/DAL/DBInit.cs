@@ -1,82 +1,153 @@
-﻿
+﻿using Microsoft.AspNetCore.Identity;
 using Group_Project_2.Models;
+using System.Runtime.Intrinsics.X86;
 
-namespace Group_Project_2.DAL
+namespace Group_Project_2.DAL;
+public class DBInit
 {
-    public static class DBInit
+    public static async void AddRoles(IApplicationBuilder app)
     {
-        public static void Seed(IApplicationBuilder app)
-        {
-            using var serviceScope = app.ApplicationServices.CreateScope();
-            ItemDbContext context = serviceScope.ServiceProvider.GetRequiredService<ItemDbContext>();
-            //context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+        using var serviceScope = app.ApplicationServices.CreateScope();
+        var roleManager =
+            serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            if (!context.Items.Any())
+        var roles = new[] { "Admin", "Host", "Tenant" };
+
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+                await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+
+    public static async void Seed(IApplicationBuilder app)
+    {
+        using var serviceScope = app.ApplicationServices.CreateScope();
+        HouseDbContext context = serviceScope.ServiceProvider.GetRequiredService<HouseDbContext>();
+        //context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+
+        if (!context.Houses.Any())
+        {
+
+            var houses = new List<House>()
             {
-                var items = new List<Item>
+                new House
                 {
-                    new Item
+                    HouseId = 1,
+                    Title = "Charming cottage on Åsen",
+                    Description = "Small charming cottage with charm on Øståsen in Vikersund.",
+                    HouseImageUrl = "assets/images/aasen_cottage.jpg",
+                    BedroomImageUrl = "assets/images/aasen_bed.jpg",
+                    BathroomImageUrl = "assets/images/aasen_bath.jpg",
+                    Location = "Modum, Viken, Norway",
+                    PricePerNight = 990,
+                    Bedrooms = 3,
+                    Bathrooms = 2,
+                },
+                new House
+                {
+                    HouseId = 2,
+                    Title = "Big villa in Holmenkollen",
+                    Description = "Modern big villa with swimming pool and nice view.",
+                    HouseImageUrl = "assets/images/villa.jpg",
+                    BedroomImageUrl = "assets/images/villa_bed.jpg",
+                    BathroomImageUrl = "assets/images/villa_bath.jpg",
+                    Location = "Oslo, Norway",
+                    PricePerNight = 1190,
+                    Bedrooms = 4,
+                    Bathrooms = 3,
+                },
+                new House
+                {
+                    HouseId = 3,
+                    Title = "Typical Norwegian cottage",
+                    Description = "Typical Norwegian cottage, very cosy near water",
+                    HouseImageUrl = "assets/images/small_cottage.jpg",
+                    BedroomImageUrl = "assets/images/cottage_bed.jpg",
+                    BathroomImageUrl = "assets/images/cottage_bath.jpg",
+                    Location = "Sandefjord, Norway",
+                    PricePerNight = 690,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                },
+                new House
+                {
+                    HouseId = 4,
+                    Title = "Northern Lights Retreat",
+                    Description = "Experience the magic of the Northern Lights from this cozy log cabin in the Arctic Circle of Norway.",
+                    HouseImageUrl = "assets/images/northernlights.jpg",
+                    BedroomImageUrl = "assets/images/northernlights_bed.jpg",
+                    BathroomImageUrl = "assets/images/northernlights_bath.jpg",
+                    Location = "Tromsø, Norway",
+                    PricePerNight = 790,
+                    Bedrooms = 2,
+                    Bathrooms = 1,
+                },
+                new House
+                {
+                    HouseId = 5,
+                    Title = "Bergen City Apartment",
+                    Description = "Stay in the heart of Bergen in this stylish and modern city apartment.",
+                    HouseImageUrl = "assets/images/bergen.jpg",
+                    BedroomImageUrl = "assets/images/bergen_bed.jpg",
+                    BathroomImageUrl = "assets/images/bergen_bath.jpg",
+                    Location = "Bergen, Norway",
+                    PricePerNight = 490,
+                    Bedrooms = 2,
+                    Bathrooms = 1,
+                }
+            };
+            context.AddRange(houses);
+            context.SaveChanges();
+        }
+
+        /*
+        if (!context.Reservations.Any())
+        {
+            var user1 = userManager.Users.FirstOrDefault(u => u.FirstName == "John");
+            var user2 = userManager.Users.FirstOrDefault(u => u.FirstName == "Sarah");
+            var user3 = userManager.Users.FirstOrDefault(u => u.FirstName == "Maria");
+            var user4 = userManager.Users.FirstOrDefault(u => u.FirstName == "Anders");
+            var user5 = userManager.Users.FirstOrDefault(u => u.FirstName == "Erik");
+            if (user3 != null && user5 != null)
+            {
+                var reservations = new List<Reservation>
+                {
+                    new Reservation
                     {
-                        Name = "Pizza",
-                        Price = 150,
-                        Description = "Delicious Italian dish with a thin crust topped with tomato sauce, cheese, and various toppings.",
-                        ImageUrl = "assets/images/pizza.jpg"
+                        CheckInDate = new DateTime(2023, 09, 28),
+                        CheckOutDate = new DateTime(2023, 10, 15),
+                        UserId = user3.Id,
+                        User = user1,
+                        HouseId = 1,
+                        DateCreated = DateTime.Today.AddDays(-25)
                     },
-                    new Item
+                    new Reservation
                     {
-                        Name = "Fried Chicken Leg",
-                        Price = 20,
-                        Description = "Crispy and succulent chicken leg that is deep-fried to perfection, often served as a popular fast food item.",
-                        ImageUrl = "assets/images/chickenleg.jpg"
-                    },
-                    new Item
-                    {
-                        Name = "French Fries",
-                        Price = 50,
-                        Description = "Crispy, golden-brown potato slices seasoned with salt and often served as a popular side dish or snack.",
-                        ImageUrl = "assets/images/frenchfries.jpg"
-                    },
-                    new Item
-                    {
-                        Name = "Grilled Ribs",
-                        Price = 250,
-                        Description = "Tender and flavorful ribs grilled to perfection, usually served with barbecue sauce.",
-                        ImageUrl = "assets/images/ribs.jpg"
-                    },
-                    new Item
-                    {
-                        Name = "Tacos",
-                        Price = 150,
-                        Description = "Tortillas filled with various ingredients such as seasoned meat, vegetables, and salsa, folded into a delicious handheld meal.",
-                        ImageUrl = "assets/images/tacos.jpg"
-                    },
-                    new Item
-                    {
-                        Name = "Fish and Chips",
-                        Price = 180,
-                        Description = "Classic British dish featuring battered and deep-fried fish served with thick-cut fried potatoes.",
-                        ImageUrl = "assets/images/fishandchips.jpg"
-                    },
-                    new Item
-                    {
-                        Name = "Cider",
-                        Price = 50,
-                        Description = "Refreshing alcoholic beverage made from fermented apple juice, available in various flavors.",
-                        ImageUrl = "assets/images/cider.jpg"
-                    },
-                    new Item
-                    {
-                        Name = "Coke",
-                        Price = 30,
-                        Description = "Popular carbonated soft drink known for its sweet and refreshing taste.",
-                        ImageUrl = "assets/images/coke.jpg"
+                        CheckInDate = new DateTime(2023, 10, 20),
+                        CheckOutDate = new DateTime(2023, 10, 27),
+                        UserId = user5.Id,
+                        HouseId = 2,
+                        User = user2,
+                        DateCreated = DateTime.Today.AddDays(-10)
                     },
                 };
-                context.AddRange(items);
+
+                foreach (var reservation in reservations)
+                {
+                    var house = context.Houses.Find(reservation.HouseId);
+                    if (house != null)
+                    {
+                        TimeSpan duration = reservation.CheckOutDate - reservation.CheckInDate;
+                        reservation.BookingDuration = duration.Days;
+                        reservation.TotalPrice = reservation.BookingDuration * house.PricePerNight;
+                    }
+                }
+                context.AddRange(reservations);
                 context.SaveChanges();
             }
-
         }
+        */
     }
 }

@@ -7,18 +7,18 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { ItemsComponent } from './items/items.component';
+import { HousesComponent } from './houses/houses.component';
 import { ConvertToCurrency } from './shared/convert-to-currency.pipe';
-import { ItemformComponent } from './items/itemform.component';
+import { HouseformComponent } from './houses/houseform.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    ItemsComponent,
+    HousesComponent,
     ConvertToCurrency,
-    ItemformComponent
+    HouseformComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -27,9 +27,9 @@ import { ItemformComponent } from './items/itemform.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'items', component: ItemsComponent },
-      { path: 'itemform', component: ItemformComponent },
-      { path: 'itemform/:mode/:id', component: ItemformComponent },
+      { path: 'houses', component: HousesComponent },
+      { path: 'houseform', component: HouseformComponent },
+      { path: 'houseform/:mode/:id', component: HouseformComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ])
   ],

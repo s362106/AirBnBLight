@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from "@angular/core";
 
 export class ConvertToCurrency implements PipeTransform {
   transform(value: number, character: string): string {
-    return character + ' ' + value.toString();
+    return value.toString() + ' ' + character; 
   }
 }
