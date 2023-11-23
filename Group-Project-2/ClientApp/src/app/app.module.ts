@@ -3,15 +3,16 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+  
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { HousesComponent } from './houses/houses.component';
 import { ConvertToCurrency } from './shared/convert-to-currency.pipe';
+import { HousesComponent } from './houses/houses.component';
 import { HouseformComponent } from './houses/houseform.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ReservationformComponent } from './reservations/reservationform.component';
+import { HousecardComponent } from './houses/housecard.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReservationformComponent } from './reservations/reservationform.compone
     ConvertToCurrency,
     HouseformComponent,
     ReservationsComponent,
-    ReservationformComponent
+    ReservationformComponent,
+    HousecardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,6 +35,7 @@ import { ReservationformComponent } from './reservations/reservationform.compone
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'houses', component: HousesComponent },
       { path: 'reservations', component: ReservationsComponent },
+      { path: 'housecard', component: HousecardComponent },
       { path: 'houseform', component: HouseformComponent },
       { path: 'reservationform', component: ReservationformComponent },
       { path: 'houseform/:mode/:id', component: HouseformComponent },
@@ -41,7 +44,7 @@ import { ReservationformComponent } from './reservations/reservationform.compone
     ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
 

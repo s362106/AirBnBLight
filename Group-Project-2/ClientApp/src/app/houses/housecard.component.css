@@ -1,0 +1,51 @@
+ul {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+}
+
+  ul li a {
+    height: 23rem;
+    width: 25rem;
+    border: 1px solid #D3D3D3;
+    border-radius: 1rem;
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+li a:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.content {
+    padding: .5rem 1rem;
+    position: relative;
+}
+
+.house-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.price {
+    position: absolute;
+    top: .5rem;
+    right: 1rem;
+    font-weight: 400;
+}
+
+.house-footer {
+    display: flex;
+    align-items: center;
+}
+
+.room-info {
+    font-weight: 150;
+}
