@@ -102,52 +102,38 @@ public class DBInit
             context.SaveChanges();
         }
 
-        /*
         if (!context.Reservations.Any())
         {
-            var user1 = userManager.Users.FirstOrDefault(u => u.FirstName == "John");
-            var user2 = userManager.Users.FirstOrDefault(u => u.FirstName == "Sarah");
-            var user3 = userManager.Users.FirstOrDefault(u => u.FirstName == "Maria");
-            var user4 = userManager.Users.FirstOrDefault(u => u.FirstName == "Anders");
-            var user5 = userManager.Users.FirstOrDefault(u => u.FirstName == "Erik");
-            if (user3 != null && user5 != null)
+            var reservations = new List<Reservation>
             {
-                var reservations = new List<Reservation>
+                new Reservation
                 {
-                    new Reservation
-                    {
-                        CheckInDate = new DateTime(2023, 09, 28),
-                        CheckOutDate = new DateTime(2023, 10, 15),
-                        UserId = user3.Id,
-                        User = user1,
-                        HouseId = 1,
-                        DateCreated = DateTime.Today.AddDays(-25)
-                    },
-                    new Reservation
-                    {
-                        CheckInDate = new DateTime(2023, 10, 20),
-                        CheckOutDate = new DateTime(2023, 10, 27),
-                        UserId = user5.Id,
-                        HouseId = 2,
-                        User = user2,
-                        DateCreated = DateTime.Today.AddDays(-10)
-                    },
-                };
+                    CheckInDate = new DateTime(2023, 09, 28),
+                    CheckOutDate = new DateTime(2023, 10, 15),
+                    HouseId = 1,
+                    DateCreated = DateTime.Today.AddDays(-25)
+                },
+                new Reservation
+                {
+                    CheckInDate = new DateTime(2023, 10, 20),
+                    CheckOutDate = new DateTime(2023, 10, 27),
+                    HouseId = 2,
+                    DateCreated = DateTime.Today.AddDays(-10)
+                },
+            };
 
-                foreach (var reservation in reservations)
+            foreach (var reservation in reservations)
+            {
+                var house = context.Houses.Find(reservation.HouseId);
+                if (house != null)
                 {
-                    var house = context.Houses.Find(reservation.HouseId);
-                    if (house != null)
-                    {
-                        TimeSpan duration = reservation.CheckOutDate - reservation.CheckInDate;
-                        reservation.BookingDuration = duration.Days;
-                        reservation.TotalPrice = reservation.BookingDuration * house.PricePerNight;
-                    }
+                    TimeSpan duration = reservation.CheckOutDate - reservation.CheckInDate;
+                    reservation.BookingDuration = duration.Days;
+                    reservation.TotalPrice = reservation.BookingDuration * house.PricePerNight;
                 }
-                context.AddRange(reservations);
-                context.SaveChanges();
             }
+            context.AddRange(reservations);
+            context.SaveChanges();
         }
-        */
     }
 }

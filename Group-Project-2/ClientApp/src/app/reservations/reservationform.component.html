@@ -1,0 +1,49 @@
+<!--
+<h2>{{ isEditMode ? 'Update' : 'Create'}} Reservation</h2>
+
+<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="houseId">HouseId:</label>
+    <input type="text" id="houseId" formControlName="houseId" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="location">Location:</label>
+    <input type="text" id="location" formControlName="location" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="pricePerNight">Price per night:</label>
+    <input type="number" id="pricePerNight" formControlName="pricePerNight" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="bedrooms">Bedrooms:</label>
+    <input type="number" id="bedrooms" formControlName="bedrooms" class="form-control" />
+  </div>
+  <button class='btn btn-primary' type="submit" [disabled]="reservationForm.invalid">
+    {{ isEditMode ? 'Update' : 'Create'}} Reservation
+  </button>
+  <button class='btn btn-secondary' (click)="backToReservations()">Cancel</button>
+</form>
+-->
+
+<h2>{{ isEditMode ? 'Update' : 'Create'}} Reservation</h2>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="reservationForm">
+  <div class="form-group row">
+    <div class="form-group">
+      <label for="houseId" class="form-label">HouseId:</label>
+      <input type="text" id="houseId" formControlName="houseId" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="checkInDate" class="form-label">Check In Date:</label>
+      <input type="date" id="checkInDate" formControlName="checkInDate" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="checkOutDate" class="form-label">Check Out Date:</label>
+      <input type="date" id="checkOutDate" formControlName="checkOutDate" class="form-control" />
+    </div>
+  </div>
+  <button class='btn btn-primary' type="submit" [disabled]="reservationForm.invalid">
+    {{ isEditMode ? 'Update' : 'Create'}} Reservation
+  </button>
+  <button class='btn btn-secondary' (click)="backToReservations()">Cancel</button>
+</form>

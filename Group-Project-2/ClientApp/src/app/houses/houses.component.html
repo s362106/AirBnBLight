@@ -36,7 +36,7 @@
   </thead>
   <tbody>
     <tr *ngFor='let house of filteredHouses'>
-      <td *ngIf="displayImage"><img [src]='house.HouseImageUrl' width="80" /></td>
+      <td *ngIf="displayImage" width="80"><img [src]='house.HouseImageUrl' width="80" /></td>
       <td>{{ house.HouseId }}</td>
       <td>{{ house.Title }}</td>
       <td>{{ house.Location }}</td>

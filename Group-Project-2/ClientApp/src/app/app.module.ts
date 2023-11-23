@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { HousesComponent } from './houses/houses.component';
 import { ConvertToCurrency } from './shared/convert-to-currency.pipe';
 import { HouseformComponent } from './houses/houseform.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+import { ReservationformComponent } from './reservations/reservationform.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { HouseformComponent } from './houses/houseform.component';
     HomeComponent,
     HousesComponent,
     ConvertToCurrency,
-    HouseformComponent
+    HouseformComponent,
+    ReservationsComponent,
+    ReservationformComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,8 +32,11 @@ import { HouseformComponent } from './houses/houseform.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'houses', component: HousesComponent },
+      { path: 'reservations', component: ReservationsComponent },
       { path: 'houseform', component: HouseformComponent },
+      { path: 'reservationform', component: ReservationformComponent },
       { path: 'houseform/:mode/:id', component: HouseformComponent },
+      { path: 'reservationform/:mode/:id', component: ReservationformComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ])
   ],

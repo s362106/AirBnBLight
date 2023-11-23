@@ -9,6 +9,7 @@ public class HouseDbContext : DbContext
 	}
 
 	public DbSet<House> Houses { get; set; }
+	public DbSet<Reservation> Reservations { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

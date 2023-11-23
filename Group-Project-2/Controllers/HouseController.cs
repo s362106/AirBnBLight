@@ -78,7 +78,6 @@ public class HouseController : Controller
     */
 
     [HttpPost("create")]
-    [Authorize(Roles = "Host")]
     public async Task<IActionResult> Create([FromBody] House house)
     {
         if (house == null)
@@ -132,7 +131,6 @@ public class HouseController : Controller
     */
 
     [HttpPut("update/{id}")]
-    [Authorize(Roles = "Host")]
     public async Task<IActionResult> Update(House house)
     {
         if (house == null)
@@ -150,11 +148,10 @@ public class HouseController : Controller
             var response = new { success = false, message = "House update failed" };
             return Ok(response);
         }
-        return Ok(house);
     }
 
     /*
-    [HttpDelete]
+    [HttpGet]
     [Authorize(Roles = "Admin, Host")]
     public async Task<IActionResult> Delete(int id)
     {

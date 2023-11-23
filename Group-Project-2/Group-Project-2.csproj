@@ -30,6 +30,10 @@
     <None Remove="ClientApp\src\app\houses\houseform.component.ts" />
     <None Remove="ClientApp\src\app\houses\houses.component.ts" />
     <None Remove="ClientApp\src\app\houses\houses.service.ts" />
+    <None Remove="ClientApp\src\app\reservations\reservation.ts" />
+    <None Remove="ClientApp\src\app\reservations\reservationform.component.ts" />
+    <None Remove="ClientApp\src\app\reservations\reservations.component.ts" />
+    <None Remove="ClientApp\src\app\reservations\reservations.service.ts" />
     <None Remove="ClientApp\src\app\shared\convert-to-currency.pipe.ts" />
   </ItemGroup>
 
@@ -38,6 +42,16 @@
     <TypeScriptCompile Include="ClientApp\src\app\houses\houses.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\houses\houses.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\houses\houseform.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reservations\reservation.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\reservations\reservationform.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reservations\reservations.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\reservations\reservations.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\shared\convert-to-currency.pipe.ts" />
   </ItemGroup>
 

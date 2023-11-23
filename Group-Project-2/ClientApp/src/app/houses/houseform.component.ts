@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HouseService } from './houses.service';
 
 @Component({
-  selector: "app-houses-itemform",
+  selector: "app-houses-houseform",
   templateUrl: "./houseform.component.html"
 })
 export class HouseformComponent {
