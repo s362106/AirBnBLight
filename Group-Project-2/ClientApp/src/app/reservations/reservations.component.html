@@ -22,6 +22,12 @@
 <table class='table table-striped' aria-labelledby="tableLabel">
   <thead>
     <tr>
+      <th width="180">
+        <button class='btn btn-primary'
+                (click)='toggleImage()'>
+          {{ displayImage ? 'Hide' : 'Show' }} Image
+        </button>
+      </th>
       <th>House</th>
       <th>Date Created</th>
       <th>Check In Date</th>
@@ -32,7 +38,8 @@
   </thead>
   <tbody>
     <tr *ngFor='let reservation of filteredReservations'>
-      <td>{{ reservation.HouseId }}</td>
+      <td><img [src]='reservation.House?.HouseImageUrl' width="80" *ngIf="displayImage" /></td>
+      <td>{{ reservation.House?.Title }}</td>
       <td>{{ reservation.DateCreated | date: 'dd-MM-yyyy' }}</td>
       <td>{{ reservation.CheckInDate | date: 'dd-MM-yyyy' }}</td>
       <td>{{ reservation.CheckOutDate | date: 'dd-MM-yyyy' }}</td>

@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReservationService } from './reservations.service';
+import { HouseService } from '../houses/houses.service';
+import { IHouse } from '../houses/house';
 
 @Component({
   selector: "app-reservations-reservationform",
@@ -11,12 +13,14 @@ export class ReservationformComponent {
   reservationForm: FormGroup;
   isEditMode: boolean = false;
   reservationId: number = -1;
+  houses: IHouse[] = [];
 
   constructor(
     private _formbuilder: FormBuilder,
     private _router: Router,
     private _route: ActivatedRoute,
-    private _reservationService: ReservationService
+    private _reservationService: ReservationService,
+    private _houseService: HouseService
   ) {
     this.reservationForm = _formbuilder.group({
       houseId: ['', Validators.required],
@@ -24,6 +28,17 @@ export class ReservationformComponent {
       checkOutDate: [new Date(), Validators.required],
     });
   }
+
+  getHouses(): void {
+    this._houseService.getHouses()
+      .subscribe(data => {
+        console.log('All', JSON.stringify(data));
+        this.houseSelectList = data;
+      }
+      );
+  }
+
+  houseSelectList: IHouse[] = this.houses;
 
   onSubmit() {
     console.log("ReservationCreate form submitted:");
@@ -58,6 +73,7 @@ export class ReservationformComponent {
   }
 
   ngOnInit(): void {
+    this.getHouses();
     this._route.params.subscribe(params => {
       if (params['mode'] === 'create') {
         this.isEditMode = false; // Create mode

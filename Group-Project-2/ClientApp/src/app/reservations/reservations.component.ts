@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IReservation } from './reservation';
 import { Router } from '@angular/router';
 import { ReservationService } from './reservations.service';
+import { HouseService } from '../houses/houses.service';
 
 @Component({
   selector: 'app-reservations-component',
@@ -16,7 +17,8 @@ export class ReservationsComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _reservationService: ReservationService) { }
+    private _reservationService: ReservationService,
+    private _houseService: HouseService) { }
 
   /*
   private _listFilter: string = '';
@@ -53,11 +55,20 @@ export class ReservationsComponent implements OnInit {
         console.log('All', JSON.stringify(data));
         this.reservations = data;
         this.filteredReservations = this.reservations;
+        this.setHouseForReservations();
       }
       );
   }
 
   filteredReservations: IReservation[] = this.reservations;
+
+  setHouseForReservations() {
+    this.reservations.forEach(reservation => {
+      this._houseService.getHouseById(reservation.HouseId).subscribe(house => {
+        reservation.House = house;
+      });
+    });
+  }
 
   /*
   performFilter(filterBy: string): IReservation[] {
