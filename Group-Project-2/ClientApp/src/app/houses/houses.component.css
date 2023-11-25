@@ -9,3 +9,12 @@ thead {
     text-decoration: underline;
     cursor: pointer;
 }
+
+img {
+    border-radius: 0.5rem;
+}
+
+.img-link:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}

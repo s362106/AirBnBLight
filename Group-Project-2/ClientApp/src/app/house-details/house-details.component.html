@@ -1,0 +1,19 @@
+<div class="container">
+  <img [src]="house.HouseImageUrl" alt="house.Title" />
+  <div class="details">
+    <span class="title">{{ house.Title }}</span>
+    <div class="price">
+      <span>{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</span>
+    </div>
+    <div class="description"><span>{{ house.Description }}</span></div>
+    <div class="room-info">
+      <span>{{ house.Bedrooms }} Bedrooms</span>
+      <span>{{ house.Bathrooms }} Bathrooms</span>
+    </div>
+    <div class="location">
+      <span>Location</span>
+      <span>{{ house.Location }}</span>
+    </div>
+    <button>Reserve House</button>
+  </div>
+</div>

@@ -7,17 +7,19 @@ ul {
     padding: 0;
 }
 
-  ul li a {
-    height: 23rem;
-    width: 25rem;
-    border: 1px solid #D3D3D3;
-    border-radius: 1rem;
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-    margin: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
+ul li a {
+  height: 23rem;
+  width: 25rem;
+  border: 1px solid #D3D3D3;
+  border-radius: 1rem;
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-decoration: none;
+  color: black;
+}
 
 li a:hover {
     opacity: 0.9;

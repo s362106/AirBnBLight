@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\house-details\house-details.component.ts" />
     <None Remove="ClientApp\src\app\houses\house.ts" />
     <None Remove="ClientApp\src\app\houses\houseform.component.ts" />
     <None Remove="ClientApp\src\app\houses\houses.component.ts" />
@@ -38,6 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\house-details\house-details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\houses\house.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\houses\houses.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\houses\houses.service.ts" />

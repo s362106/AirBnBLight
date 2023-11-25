@@ -92,8 +92,8 @@ export class ReservationformComponent {
           console.log('retrieved reservation: ', reservation);
           this.reservationForm.patchValue({
             houseId: reservation.HouseId,
-            checkInDate: reservation.CheckInDate,
-            checkOutDate: reservation.CheckOutDate,
+            checkInDate: new Date(reservation.CheckInDate),
+            checkOutDate: new Date(reservation.CheckOutDate),
           });
         }, (error: any) => {
           console.error('Error loading reservation for edit:', error);

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HouseService } from './houses.service';
 
 @Component({
-  selector: "app-houses-houseform",
+  selector: "app-houseform-component",
   templateUrl: "./houseform.component.html"
 })
 export class HouseformComponent {
@@ -22,7 +22,7 @@ export class HouseformComponent {
       title: ['', Validators.required],
       location: [''],
       pricePerNight: [0, Validators.required],
-      bedrroms: [0, Validators.required],
+      bedrooms: [0, Validators.required],
       bathrooms: [0, Validators.required],
       description: [''],
       houseImageUrl: [''],
@@ -85,7 +85,7 @@ export class HouseformComponent {
             location: house.Location,
             pricePerNight: house.PricePerNight,
             bedrooms: house.Bedrooms,
-            bathrooms: house.Title,
+            bathrooms: house.Bathrooms,
             description: house.Description,
             houseImageUrl: house.HouseImageUrl,
             bedroomImageUrl: house.BedroomImageUrl,

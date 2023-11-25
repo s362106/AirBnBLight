@@ -12,7 +12,8 @@ import { HousesComponent } from './houses/houses.component';
 import { HouseformComponent } from './houses/houseform.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ReservationformComponent } from './reservations/reservationform.component';
-import { HousecardComponent } from './houses/housecard.component';
+import { HousecardComponent } from './housecard/housecard.component';
+import { HouseDetailsComponent } from './house-details/house-details.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HousecardComponent } from './houses/housecard.component';
     HouseformComponent,
     ReservationsComponent,
     ReservationformComponent,
-    HousecardComponent
+    HousecardComponent,
+    HouseDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,6 +40,7 @@ import { HousecardComponent } from './houses/housecard.component';
       { path: 'housecard', component: HousecardComponent },
       { path: 'houseform', component: HouseformComponent },
       { path: 'reservationform', component: ReservationformComponent },
+      { path: 'house-details/:id', component: HouseDetailsComponent },
       { path: 'houseform/:mode/:id', component: HouseformComponent },
       { path: 'reservationform/:mode/:id', component: ReservationformComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
