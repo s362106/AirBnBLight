@@ -1,25 +1,28 @@
-<h2>{{ isEditMode ? 'Update' : 'Create'}} Reservation</h2>
+<div class="p-5 shadow-sm" style="border-radius: 15px">
 
-<form (ngSubmit)="onSubmit()" [formGroup]="reservationForm">
-    <div class="form-group row">
-        <div class="form-floating col-md-4 mb-3 gx-1">
-            <select formControlName="houseId" class="form-select">
-                <option value="">Select a house...</option>
-                <option *ngFor="let house of houseSelectList" [value]="house.HouseId">{{ house.Title }}</option>
-            </select>
-            <label for="houseId" class="form-label">HouseId:</label>
+    <h2>{{ isEditMode ? 'Update' : 'Create'}} Reservation</h2>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="reservationForm">
+        <div class="form-group row">
+            <div class="form-floating col-md-4 mb-3 gx-1">
+                <select formControlName="houseId" class="form-select">
+                    <option value="">Select a house...</option>
+                    <option *ngFor="let house of houseSelectList" [value]="house.HouseId">{{ house.Title }}</option>
+                </select>
+                <label for="houseId" class="form-label">HouseId:</label>
+            </div>
+            <div class="form-floating col-md-4 mb-3 gx-1">
+                <input type="date" id="checkInDate" formControlName="checkInDate" class="form-control" />
+                <label for="checkInDate" class="form-label">Check In Date:</label>
+            </div>
+            <div class="form-floating col-md-4 mb-3 gx-1">
+                <input type="date" id="checkOutDate" formControlName="checkOutDate" class="form-control" />
+                <label for="checkOutDate" class="form-label">Check Out Date:</label>
+            </div>
         </div>
-        <div class="form-floating col-md-4 mb-3 gx-1">
-            <input type="date" id="checkInDate" formControlName="checkInDate" class="form-control" />
-            <label for="checkInDate" class="form-label">Check In Date:</label>
-        </div>
-        <div class="form-floating col-md-4 mb-3 gx-1">
-            <input type="date" id="checkOutDate" formControlName="checkOutDate" class="form-control" />
-            <label for="checkOutDate" class="form-label">Check Out Date:</label>
-        </div>
-    </div>
-    <button class='btn btn-primary rounded-pill' type="submit" [disabled]="reservationForm.invalid">
-        {{ isEditMode ? 'Update' : 'Create'}} Reservation
-    </button>
-    <button class='btn btn-secondary rounded-pill' (click)="backToReservations()">Cancel</button>
-</form>
+        <button class='btn btn-primary rounded-pill' type="submit" [disabled]="reservationForm.invalid">
+            {{ isEditMode ? 'Update' : 'Create'}} Reservation
+        </button>
+        <button class='btn btn-secondary rounded-pill mx-3' (click)="backToReservations()">Cancel</button>
+    </form>
+</div>

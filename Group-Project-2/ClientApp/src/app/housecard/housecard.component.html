@@ -1,4 +1,4 @@
-<h1 id="tableLabel">List of Houses ({{viewTitle}} View)</h1>
+<h1 id="tableLabel" class="my-3">List of Houses ({{viewTitle}} View)</h1>
 
 <div class='row mb-3'>
     <div class="col-md-9">
@@ -19,28 +19,28 @@
 </div>
 
 <div class='row'>
-  <div class='col-md-6'>
-    <h4>Filtered by title: {{listFilter}}</h4>
-  </div>
+    <div class='col-md-6'>
+        <h4>Filtered by title: {{listFilter}}</h4>
+    </div>
 </div>
 
 <ul>
-  <li *ngFor="let house of filteredHouses">
-    <a routerLink="/house-details/{{ house.HouseId }}">
-      <img src="{{ house.HouseImageUrl }}" alt="{{ house.Title }}" />
-      <div class="content">
-        <div class="house-title">{{ house.Title }}</div>
-        <span class="price">{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</span>
-        <div class="house-footer">
-          <div class="location">
-            <span>{{ house.Location }}</span>
-          </div>
-        </div>
-        <div class="room-info">
-          <span>{{ house.Bedrooms }} Bedrooms, </span>
-          <span>{{ house.Bathrooms }} Bathrooms</span>
-        </div>
-      </div>
-    </a>
-  </li>
+    <li *ngFor="let house of filteredHouses">
+        <a routerLink="/house-details/{{ house.HouseId }}">
+            <img src="{{ house.HouseImageUrl }}" alt="{{ house.Title }}" />
+            <div class="content">
+                <div class="house-title">{{ house.Title }}</div>
+                <span class="price">{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</span>
+                <div class="house-footer">
+                    <div class="location">
+                        <span>{{ house.Location }}</span>
+                    </div>
+                </div>
+                <div class="room-info">
+                    <span>{{ house.Bedrooms }} Bedrooms, </span>
+                    <span>{{ house.Bathrooms }} Bathrooms</span>
+                </div>
+            </div>
+        </a>
+    </li>
 </ul>

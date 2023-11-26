@@ -18,6 +18,9 @@ html {
 }
 
 .nav-item:hover {
-  background: #ADD8E6;
-  border-radius: 20px;
+  border-bottom: 2px solid blue;
+}
+
+.nav-item {
+  border-bottom: 2px solid white;
 }

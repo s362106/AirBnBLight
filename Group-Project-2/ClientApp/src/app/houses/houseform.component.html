@@ -1,52 +1,53 @@
 <h2>{{ isEditMode ? 'Update' : 'Create'}} House</h2>
-
-<form [formGroup]="houseForm" (ngSubmit)="onSubmit()">
-    <div class="form-group row">
-        <div class="form-floating col-md-9 mb-3 gx-1">
-            <input type="text" id="title" formControlName="title" class="form-control" />
-            <label for="title">Title:</label>
+<div class="p-4 shadow-sm" style="border-radius: 15px">
+    <form [formGroup]="houseForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+            <div class="form-floating col-md-9 mb-3 gx-1">
+                <input type="text" id="title" formControlName="title" class="form-control" />
+                <label for="title">Title:</label>
+            </div>
+            <div class="form-floating col-md-3 mb-3 gx-1">
+                <input type="text" id="location" formControlName="location" class="form-control" />
+                <label for="location">Location:</label>
+            </div>
         </div>
-        <div class="form-floating col-md-3 mb-3 gx-1">
-            <input type="text" id="location" formControlName="location" class="form-control" />
-            <label for="location">Location:</label>
+        <div class="form-group row">
+            <div class="form-floating col-md-4 mb-3 gx-1">
+                <input type="number" id="pricePerNight" formControlName="pricePerNight" class="form-control" />
+                <label for="pricePerNight">Price per night:</label>
+            </div>
+            <div class="form-floating col-md-4 mb-3 gx-1">
+                <input type="number" id="bedrooms" formControlName="bedrooms" class="form-control" />
+                <label for="bedrooms">Bedrooms:</label>
+            </div>
+            <div class="form-floating col-md-4 mb-3 gx-1">
+                <input type="number" id="bathrooms" formControlName="bathrooms" class="form-control" />
+                <label for="bathrooms">Bathrooms:</label>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="form-floating col-md-4 mb-3 gx-1">
-            <input type="number" id="pricePerNight" formControlName="pricePerNight" class="form-control" />
-            <label for="pricePerNight">Price per night:</label>
+        <div class="form-group row">
+            <div class="form-floating gx-1 mb-3">
+                <textarea id="description" formControlName="description" class="form-control" style="height: 100px"></textarea>
+                <label for="description">Description:</label>
+            </div>
         </div>
-        <div class="form-floating col-md-4 mb-3 gx-1">
-            <input type="number" id="bedrooms" formControlName="bedrooms" class="form-control" />
-            <label for="bedrooms">Bedrooms:</label>
+        <div class="form-group row">
+            <div class="form-floating col-md-4 mb-3 gx-1">
+                <input type="text" id="houseImageUrl" formControlName="houseImageUrl" class="form-control" />
+                <label for="houseImageUrl">House Image URL:</label>
+            </div>
+            <div class="form-floating col-md-4 mb-3 gx-1">
+                <input type="text" id="bedroomImageUrl" formControlName="bedroomImageUrl" class="form-control" />
+                <label for="bedroomImageUrl">Bedroom Image URL:</label>
+            </div>
+            <div class="form-floating col-md-4 mb-3 gx-1">
+                <input type="text" id="bathroomImageUrl" formControlName="bathroomImageUrl" class="form-control" />
+                <label for="bathroomImageUrl">Bathroom Image URL:</label>
+            </div>
         </div>
-        <div class="form-floating col-md-4 mb-3 gx-1">
-            <input type="number" id="bathrooms" formControlName="bathrooms" class="form-control" />
-            <label for="bathrooms">Bathrooms:</label>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="form-floating gx-1 mb-3">
-            <textarea id="description" formControlName="description" class="form-control" style="height: 100px"></textarea>
-            <label for="description">Description:</label>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="form-floating col-md-4 mb-3 gx-1">
-            <input type="text" id="houseImageUrl" formControlName="houseImageUrl" class="form-control" />
-            <label for="houseImageUrl">House Image URL:</label>
-        </div>
-        <div class="form-floating col-md-4 mb-3 gx-1">
-            <input type="text" id="bedroomImageUrl" formControlName="bedroomImageUrl" class="form-control" />
-            <label for="bedroomImageUrl">Bedroom Image URL:</label>
-        </div>
-        <div class="form-floating col-md-4 mb-3 gx-1">
-            <input type="text" id="bathroomImageUrl" formControlName="bathroomImageUrl" class="form-control" />
-            <label for="bathroomImageUrl">Bathroom Image URL:</label>
-        </div>
-    </div>
-    <button class='btn btn-primary rounded-pill' type="submit" [disabled]="houseForm.invalid">
-        {{ isEditMode ? 'Update' : 'Create'}} House
-    </button>
-    <button class='btn btn-secondary rounded-pill' (click)="backToHouses()">Cancel</button>
-</form>
+        <button class='btn btn-primary rounded-pill' type="submit" [disabled]="houseForm.invalid">
+            {{ isEditMode ? 'Update' : 'Create'}} House
+        </button>
+        <button class='btn btn-secondary rounded-pill' (click)="backToHouses()">Cancel</button>
+    </form>
+</div>
