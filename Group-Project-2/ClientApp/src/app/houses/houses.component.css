@@ -1,17 +1,6 @@
-thead {
-    color: blue;
-}
-
-.delete-link 
-{
-    margin-left: 8px;
-    color: red;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
 img {
-    border-radius: 0.5rem;
+  width: 80px;
+  height: 80px;
 }
 
 .img-link:hover {

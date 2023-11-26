@@ -1,11 +1,8 @@
-thead {
-    color: blue;
+img {
+    width: 80px;
+    height: 80px;
 }
 
-.delete-link 
-{
-    margin-left: 8px;
-    color: red;
-    text-decoration: underline;
-    cursor: pointer;
+#actions {
+    width: 100px;
 }

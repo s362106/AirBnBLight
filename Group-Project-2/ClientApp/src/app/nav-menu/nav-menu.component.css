@@ -19,4 +19,5 @@ html {
 
 .nav-item:hover {
   background: #ADD8E6;
+  border-radius: 20px;
 }

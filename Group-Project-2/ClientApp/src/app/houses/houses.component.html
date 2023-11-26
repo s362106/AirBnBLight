@@ -1,62 +1,69 @@
 <h1 id="tableLabel">List of Houses ({{viewTitle}} View)</h1>
 
-<button class='btn btn-primary' [routerLink]="['/housecard']">Grid View</button>
-
-<div class='row'>
-  <div class='col-md-2'>Filter by title:</div>
-  <div class='col-md-4'>
-    <input type='text'
-           [(ngModel)]='listFilter' />
-  </div>
+<div class='row mb-3'>
+    <div class="col-md-9">
+        <div class="btn-group btn-group-sm">
+            <a class="btn btn-outline-dark" [routerLink]="['/housecard']">Grid View</a>
+            <a class="btn btn-outline-dark active" href="#">Table View</a>
+        </div>
+    </div>
+    <div class='col-md-3'>
+        <div class="row">
+            <div class='col-md-5'>Filter by title:</div>
+            <div class='col-md-7'>
+                <input type='text' class="form-control"
+                       [(ngModel)]='listFilter' />
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class='row'>
-  <div class='col-md-6'>
-    <h4>Filtered by title: {{listFilter}}</h4>
-  </div>
+    <div class='col-md-6'>
+        <h4>Filtered by title: {{listFilter}}</h4>
+    </div>
 </div>
 
-<table class='table table-striped' aria-labelledby="tableLabel">
-  <thead>
-    <tr>
-      <th width="180">
-        <button class='btn btn-primary'
-                (click)='toggleImage()'>
-          {{ displayImage ? 'Hide' : 'Show' }} Image
-        </button>
-      </th>
-      <th>HouseId</th>
-      <th>Title</th>
-      <th>Location</th>
-      <th>Room info</th>
-      <th>Description</th>
-      <th>Price/night</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor='let house of filteredHouses' routerLink="/house-details/{{ house.HouseId }}" class="img-link">
-      <td>
+<table class='table table-hover' aria-labelledby="tableLabel">
+    <thead>
+        <tr>
+            <th>
+                <button class='btn btn-sm btn-dark rounded-pill text-nowrap'
+                        (click)='toggleImage()'>
+                    {{ displayImage ? 'Hide' : 'Show' }} Image
+                </button>
+            </th>
+            <th>HouseId</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Room info</th>
+            <th>Description</th>
+            <th>Price/night</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let house of filteredHouses' routerLink="/house-details/{{ house.HouseId }}" class="img-link">
+            <td>
+                <img [src]='house.HouseImageUrl' *ngIf="displayImage" class="rounded-circle" />
+            </td>
+            <td>{{ house.HouseId }}</td>
+            <td>{{ house.Title }}</td>
+            <td>{{ house.Location }}</td>
+            <td width="160">
+                <span class="badge rounded-pill bg-light text-dark">{{ house.Bedrooms }} Bedrooms</span><br />
+                <span class="badge rounded-pill bg-light text-dark">{{ house.Bathrooms }} Bathrooms</span>
+            </td>
+            <td>{{ house.Description }}</td>
+            <td width="120">{{ house.PricePerNight | convertToCurrency: 'kr' }}</td>
 
-        <img [src]='house.HouseImageUrl' width="80" *ngIf="displayImage" />
-      </td>
-      <td>{{ house.HouseId }}</td>
-      <td>{{ house.Title }}</td>
-      <td>{{ house.Location }}</td>
-      <td width="160">
-        <span>{{ house.Bedrooms }} Bedrooms</span><br />
-        <span>{{ house.Bathrooms }} Bathrooms</span>
-      </td>
-      <td>{{ house.Description }}</td>
-      <td width="120">{{ house.PricePerNight | convertToCurrency: 'kr' }}</td>
-
-      <td>
-        <a [routerLink]="['/houseform', 'edit', house.HouseId]">Update</a>
-        <a class="delete-link" (click)="deleteHouse(house)">Delete</a>
-      </td>
-    </tr>
-  </tbody>
+            <td>
+                <a class="btn btn-sm btn-secondary rounded-pill w-100 my-1" [routerLink]="['/houseform', 'edit', house.HouseId]">Update</a>
+                <a class="btn btn-sm btn-danger rounded-pill w-100" (click)="deleteHouse(house)">Delete</a>
+            </td>
+        </tr>
+    </tbody>
 </table>
 
-<button class='btn btn-primary' [routerLink]="['/houseform', 'create', -1]">Create New House</button>
-<button class='btn btn-secondary' routerLink="/houseform">Create New House</button>
+<button class='btn btn-primary rounded-pill' [routerLink]="['/houseform', 'create', -1]">Create New House</button>
+<button class='btn btn-secondary rounded-pill' routerLink="/houseform">Create New House</button>

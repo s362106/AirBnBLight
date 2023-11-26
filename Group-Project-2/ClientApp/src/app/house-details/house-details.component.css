@@ -64,17 +64,4 @@ img {
     font-weight: bold;
 }
 
-.details button {
-    color: white;
-    background: darkgrey;
-    border: none;
-    font-size: 1.2rem;
-    padding: 0.5rem;
-    border-radius: 10rem;
-    outline: none;
-}
 
-.details button:hover {
-    opacity: 0.9;
-    cursor: pointer;
-}
