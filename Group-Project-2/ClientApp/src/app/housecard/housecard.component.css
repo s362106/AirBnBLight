@@ -1,15 +1,9 @@
 ul {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    flex-wrap: wrap;
-    list-style-type: none;
     padding: 0;
+    list-style-type: none;
 }
 
 ul li a {
-  height: 23rem;
-  width: 25rem;
   border: 1px solid #D3D3D3;
   border-radius: 1rem;
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
@@ -37,9 +31,6 @@ li a:hover {
 }
 
 .price {
-    position: absolute;
-    top: .5rem;
-    right: 1rem;
     font-weight: 400;
 }
 
