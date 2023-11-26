@@ -23,6 +23,22 @@ export class HouseDetailsComponent implements OnInit {
     })
   }
 
+  deleteHouse(house: IHouse): void {
+    const confirmDelete = confirm(`Are you sure you want to delete "${house.Title}"?`);
+    if (confirmDelete) {
+      this._houseService.deleteHouse(house.HouseId)
+        .subscribe(
+          (response) => {
+            if (response.success) {
+              console.log(response.message);
+            }
+          },
+          (error) => {
+            console.error('Error deleting house:', error);
+          });
+    }
+  }
+
   loadHouse(houseId: number) {
     this._houseService.getHouseById(houseId)
       .subscribe(

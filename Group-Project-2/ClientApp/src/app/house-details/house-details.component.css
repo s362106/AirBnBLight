@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin: 3rem;
+  margin: 3rem 3rem 1rem 3rem;
 }
 
 .container > * {
@@ -64,4 +64,12 @@ img {
     font-weight: bold;
 }
 
+.actions {
+    margin-left: 4.5rem;
+}
 
+.actions button {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+}

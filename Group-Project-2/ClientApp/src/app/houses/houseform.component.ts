@@ -60,7 +60,15 @@ export class HouseformComponent {
   }
 
   backToHouses() {
-    this._router.navigate(['/houses']);
+    this._route.params.subscribe(params => {
+      if (params['view'] === 'Table') {
+        this._router.navigate(['/houses']);
+      } else if (params['view'] === 'Grid') {
+        this._router.navigate(['/housecard']);
+      } else if (params['view'] === 'Details') {
+        this._router.navigate(['/house-details/' + this.houseId]);
+      }
+    });
   }
 
   ngOnInit(): void {

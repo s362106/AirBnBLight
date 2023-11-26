@@ -43,9 +43,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor='let house of filteredHouses' routerLink="/house-details/{{ house.HouseId }}" class="img-link">
+        <tr *ngFor='let house of filteredHouses'>
             <td>
-                <img [src]='house.HouseImageUrl' *ngIf="displayImage" class="rounded-circle" />
+                <img [src]='house.HouseImageUrl' *ngIf="displayImage" class="rounded-circle img-link" routerLink="/house-details/{{ house.HouseId }}"/>
             </td>
             <td>{{ house.HouseId }}</td>
             <td>{{ house.Title }}</td>
@@ -58,7 +58,7 @@
             <td width="120">{{ house.PricePerNight | convertToCurrency: 'kr' }}</td>
 
             <td>
-                <a class="btn btn-sm btn-secondary rounded-pill w-100 my-1" [routerLink]="['/houseform', 'edit', house.HouseId]">Update</a>
+                <a class="btn btn-sm btn-secondary rounded-pill w-100 my-1" [routerLink]="['/houseform', 'edit', house.HouseId, viewTitle]">Update</a>
                 <a class="btn btn-sm btn-danger rounded-pill w-100" (click)="deleteHouse(house)">Delete</a>
             </td>
         </tr>

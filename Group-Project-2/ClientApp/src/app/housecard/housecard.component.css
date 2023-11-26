@@ -3,14 +3,17 @@ ul {
     list-style-type: none;
 }
 
-ul li a {
+.card {
   border: 1px solid #D3D3D3;
   border-radius: 1rem;
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
   margin: 0.5rem;
+  overflow: hidden;
+}
+
+ul li a {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   text-decoration: none;
   color: black;
 }
@@ -42,3 +45,12 @@ li a:hover {
 .room-info {
     font-weight: 150;
 }
+
+.actions {
+  border-top: 1px solid #D3D3D3;
+  padding: 0.3rem 0.8rem;
+}
+
+  .actions button {
+    margin-right: 0.5rem;
+  }

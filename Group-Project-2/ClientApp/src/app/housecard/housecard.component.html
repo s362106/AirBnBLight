@@ -26,23 +26,30 @@
 
 <ul class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
     <li *ngFor="let house of filteredHouses" class="col">
+      <div class="card">
         <a routerLink="/house-details/{{ house.HouseId }}">
-            <img src="{{ house.HouseImageUrl }}" alt="{{ house.Title }}" />
-            <div class="content">
-                <div class="d-flex justify-content-between mt-2">
-                    <h6 class="house-title">{{ house.Title }}</h6>
-                    <h6 class="price">{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</h6>
-                </div>
-                <div class="house-footer">
-                    <div class="location">
-                        <span>{{ house.Location }}</span>
-                    </div>
-                </div>
-                <div class="room-info">
-                    <span>{{ house.Bedrooms }} Bedrooms, </span>
-                    <span>{{ house.Bathrooms }} Bathrooms</span>
-                </div>
+          <img src="{{ house.HouseImageUrl }}" alt="{{ house.Title }}" />
+          <div class="content">
+            <div class="d-flex justify-content-between mt-2">
+              <h6 class="house-title">{{ house.Title }}</h6>
+              <h6 class="price">{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</h6>
             </div>
+            <div class="house-footer">
+              <div class="location">
+                <span>{{ house.Location }}</span>
+              </div>
+            </div>
+            <div class="room-info">
+              <span>{{ house.Bedrooms }} Bedrooms, </span>
+              <span>{{ house.Bathrooms }} Bathrooms</span>
+            </div>
+          </div>
         </a>
+        <div class="actions">
+          <button class="btn btn-sm btn-secondary rounded-pill my-1" [routerLink]="['/houseform', 'edit', house.HouseId, viewTitle]">Update</button>
+          <button class="btn btn-sm btn-danger rounded-pill" (click)="deleteHouse(house)">Delete</button>
+        </div>
+      </div>
+      
     </li>
 </ul>

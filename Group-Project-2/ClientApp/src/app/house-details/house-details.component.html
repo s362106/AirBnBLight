@@ -17,3 +17,7 @@
     <button class="btn btn-lg btn-primary rounded-pill" routerLink="/reservationform">Reserve House</button>
   </div>
 </div>
+<div class="actions">
+  <button class="btn btn-sm btn-secondary rounded-pill my-1" [routerLink]="['/houseform', 'edit', house.HouseId, viewTitle]">Update</button>
+  <button class="btn btn-sm btn-danger rounded-pill" (click)="deleteHouse(house)">Delete</button>
+</div>

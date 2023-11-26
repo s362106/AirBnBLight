@@ -41,7 +41,7 @@ import { HouseDetailsComponent } from './house-details/house-details.component';
       { path: 'houseform', component: HouseformComponent },
       { path: 'reservationform', component: ReservationformComponent },
       { path: 'house-details/:id', component: HouseDetailsComponent },
-      { path: 'houseform/:mode/:id', component: HouseformComponent },
+      { path: 'houseform/:mode/:id/:view', component: HouseformComponent },
       { path: 'reservationform/:mode/:id', component: ReservationformComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ])

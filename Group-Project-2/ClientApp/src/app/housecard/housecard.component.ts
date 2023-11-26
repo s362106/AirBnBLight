@@ -27,6 +27,23 @@ export class HousecardComponent implements OnInit {
     this.filteredHouses = this.performFilter(value);
   }
 
+  deleteHouse(house: IHouse): void {
+    const confirmDelete = confirm(`Are you sure you want to delete "${house.Title}"?`);
+    if (confirmDelete) {
+      this._houseService.deleteHouse(house.HouseId)
+        .subscribe(
+          (response) => {
+            if (response.success) {
+              console.log(response.message);
+              this.filteredHouses = this.filteredHouses.filter(i => i !== house);
+            }
+          },
+          (error) => {
+            console.error('Error deleting house:', error);
+          });
+    }
+  }
+
   getHouses(): void {
     this._houseService.getHouses()
       .subscribe(data => {
