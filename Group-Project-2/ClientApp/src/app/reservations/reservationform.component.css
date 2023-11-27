@@ -1,0 +1,19 @@
+body {
+}
+.reservation-info div {
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.reservation-info img {
+    border-radius: 2rem;
+}
+
+.reservation-info span {
+    font-size: 1rem;
+}
+
+.reservation-info span:first-child {
+    font-weight: bold;
+    font-size: 1.5rem;
+}

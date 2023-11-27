@@ -7,7 +7,8 @@ import { IHouse } from '../houses/house';
 
 @Component({
   selector: "app-reservations-reservationform",
-  templateUrl: "./reservationform.component.html"
+  templateUrl: "./reservationform.component.html",
+  styleUrls: ['./reservationform.component.css']
 })
 export class ReservationformComponent {
   reservationForm: FormGroup;
@@ -100,5 +101,22 @@ export class ReservationformComponent {
         }
       );
   }
-}
 
+  chosenHouse!: IHouse;
+  changeHouse(houseIdString: string) {
+    const houseId: number = +houseIdString;
+    if (!isNaN(houseId)) {
+      this._houseService.getHouseById(houseId)
+        .subscribe(
+          (house: any) => {
+            this.chosenHouse = house;
+          }, (error: any) => {
+            console.error('Error changing houses:', error);
+          }
+        );
+    } else {
+      console.error('houseSelect is not a number');
+    }
+  }
+
+}
