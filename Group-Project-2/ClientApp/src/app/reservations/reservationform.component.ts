@@ -93,13 +93,20 @@ export class ReservationformComponent {
           console.log('retrieved reservation: ', reservation);
           this.reservationForm.patchValue({
             houseId: reservation.HouseId,
-            checkInDate: new Date(reservation.CheckInDate),
-            checkOutDate: new Date(reservation.CheckOutDate),
+            checkInDate: this.formatDate(new Date(reservation.CheckInDate)),
+            checkOutDate: this.formatDate(new Date(reservation.CheckOutDate)),
           });
         }, (error: any) => {
           console.error('Error loading reservation for edit:', error);
         }
       );
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 
   chosenHouse!: IHouse;

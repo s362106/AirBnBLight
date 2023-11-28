@@ -5,8 +5,7 @@ import { HouseService } from '../houses/houses.service';
 
 @Component({
   selector: 'app-housecard-component',
-  templateUrl: './housecard.component.html',
-  styleUrls: ['./housecard.component.css']
+  templateUrl: './housecard.component.html'
 })
 
 export class HousecardComponent implements OnInit {
