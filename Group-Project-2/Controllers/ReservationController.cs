@@ -67,7 +67,7 @@ public class ReservationController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var reservations = await _houseRepository.GetReservations();
+        var reservations = await _houseRepository.GetReservations(); //unitTest (this is not called?)
         if (reservations == null)
         {
             _logger.LogError("[ReservationController] Reservation list not found while executing _houseRepository.GetReservations()");

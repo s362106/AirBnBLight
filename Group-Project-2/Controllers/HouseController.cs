@@ -59,7 +59,7 @@ public class HouseController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var houses = await _houseRepository.GetAll();
+        var houses = await _houseRepository.GetAll(); //this part would not be called during the unit test
         if (houses == null)
         {
             _logger.LogError("[HouseController] House list not found while executing _houseRepository.GetAll()");
