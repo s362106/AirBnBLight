@@ -28,7 +28,7 @@
     <li *ngFor="let house of filteredHouses" class="col">
       <div class="card">
         <a routerLink="/house-details/{{ house.HouseId }}">
-          <img src="{{ house.HouseImageUrl }}" alt="{{ house.Title }}" />
+          <img [src]=" house.HouseImageUrl" [alt]="house.Title" />
           <div class="content">
             <div class="d-flex justify-content-between mt-2">
               <h6 class="house-title">{{ house.Title }}</h6>

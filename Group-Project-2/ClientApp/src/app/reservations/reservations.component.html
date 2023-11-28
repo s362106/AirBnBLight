@@ -1,6 +1,6 @@
 <app-reservations-reservationform></app-reservations-reservationform>
 
-<h1 id="tableLabel" class="my-4">List of Reservations ({{viewTitle}} View)</h1>
+<h1 id="tableLabel" class="my-4">My Reservations</h1>
 
 <button class='btn btn-primary' (click)='getReservations()'>Get Reservations</button>
 
@@ -40,7 +40,7 @@
     </thead>
     <tbody>
         <tr *ngFor='let reservation of filteredReservations'>
-            <td><img [src]='reservation.House?.HouseImageUrl' *ngIf="displayImage" class="rounded-circle" /></td>
+            <td><img [src]='reservation.House?.HouseImageUrl' *ngIf="displayImage" class="rounded-circle" routerLink="/reservation-details/{{ reservation.ReservationId }}"/></td>
             <td>{{ reservation.House?.Title }}</td>
             <td>{{ reservation.DateCreated | date: 'dd-MM-yyyy' }}</td>
             <td>{{ reservation.CheckInDate | date: 'dd-MM-yyyy' }}</td>
@@ -55,4 +55,3 @@
 </table>
 
 <button class='btn btn-primary rounded-pill' [routerLink]="['/reservationform', 'create', -1]">Create New Reservation</button>
-<button class='btn btn-secondary rounded-pill' routerLink="/reservationform">Create New Reservation</button>

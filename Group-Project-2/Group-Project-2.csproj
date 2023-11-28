@@ -42,6 +42,7 @@
     <None Remove="ClientApp\src\app\houses\houseform.component.ts" />
     <None Remove="ClientApp\src\app\houses\houses.component.ts" />
     <None Remove="ClientApp\src\app\houses\houses.service.ts" />
+    <None Remove="ClientApp\src\app\reservation-details\reservation-details.component.ts" />
     <None Remove="ClientApp\src\app\reservations\reservation.ts" />
     <None Remove="ClientApp\src\app\reservations\reservationform.component.ts" />
     <None Remove="ClientApp\src\app\reservations\reservations.component.ts" />
@@ -57,6 +58,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\houses\houses.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\houses\houses.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\houses\houseform.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reservation-details\reservation-details.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\reservations\reservation.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -93,7 +97,7 @@
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
-      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

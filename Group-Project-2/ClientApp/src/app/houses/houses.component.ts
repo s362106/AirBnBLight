@@ -71,6 +71,19 @@ export class HousesComponent implements OnInit {
     this._router.navigate(['/houseform']);
   }
 
+  displayTable: boolean = false;
+  displayCard: boolean = true;
+
+  showTableView() {
+    this.displayTable = true;
+    this.displayCard = false;
+  }
+
+  showGridView() {
+    this.displayTable = false;
+    this.displayCard = true;
+  }
+
   ngOnInit(): void {
     this.getHouses();
   }

@@ -1,0 +1,77 @@
+/*
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 3rem 3rem 1rem 3rem;
+}
+
+.container > * {
+    min-width: 25rem;
+    max-width: 40rem;
+}
+
+img {
+  flex: 1 0;
+  object-fit: cover;
+  border-radius: 3rem;
+  height: 35rem;
+}
+
+.details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0;
+    border-radius: 3rem;
+    padding: 2rem;
+    color: black;
+    margin-left: 1rem;
+}
+
+.title {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.room-info {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+}
+
+  .room-info > span {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    margin: 0.5rem 0.5rem 0.5rem 0;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, .05);
+  }
+
+.location {
+    margin: 2rem 2rem 2rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.location span:first-child {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.actions {
+    margin-left: 4.5rem;
+}
+
+.actions button {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+}
+*/
