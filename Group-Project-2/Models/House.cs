@@ -12,7 +12,7 @@ public class House
     [JsonPropertyName("Title")]
     public string Title { get; set; } = string.Empty;
 
-    [MinLength(50, ErrorMessage = "The description must be at least 50 characters long.")]
+    [MinLength(10, ErrorMessage = "The description must be at least 50 characters long.")]
     [JsonPropertyName("Description")]
     public string Description { get; set; } = string.Empty;
 
@@ -41,10 +41,9 @@ public class House
     [RegularExpression(@"^[1-9]\d*$", ErrorMessage = "The value must be a whole number and at least 1.")]
     [JsonPropertyName("Bathrooms")]
     public int Bathrooms { get; set; }
-    /*
-	public string UserId { get; set; } = string.Empty;
+
+    public string UserId { get; set; } = string.Empty;
     public virtual User? User { get; set; } = default!;
 
-	public virtual List<Reservation>? Reservations { get; set; }
-    */
+    //public virtual List<Reservation>? Reservations { get; set; }
 }

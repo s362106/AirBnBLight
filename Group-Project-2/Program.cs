@@ -1,13 +1,36 @@
 using Group_Project_2.DAL;
 using Group_Project_2.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using System.Text;
 using Serilog.Events;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+});
+
+// Code from here on derived from: https://github.com/rd003/dotnet-jwt-medium/blob/master/BookStore.Api/Program.cs
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "UserLoginCookie";
+        options.SlidingExpiration = true;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.LogoutPath = "/User/Logout";
+        options.LoginPath = "/User/Login";
+        options.Cookie.HttpOnly = true;
+    });
+// Until here
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<HouseDbContext>(options =>
 {
@@ -15,7 +38,17 @@ builder.Services.AddDbContext<HouseDbContext>(options =>
         builder.Configuration["ConnectionStrings:HouseDbContextConnection"]);
 });
 
+builder.Services.AddDefaultIdentity<User>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<HouseDbContext>();
+
 builder.Services.AddScoped<IHouseRepository, HouseRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddHttpContextAccessor();
 
 var loggerConfiguration = new LoggerConfiguration()
     .MinimumLevel.Information() // levels: Trace< Information < Warning < Erorr < Fatal
@@ -38,11 +71,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html"); ;
+app.MapFallbackToFile("index.html");
 
 app.Run();

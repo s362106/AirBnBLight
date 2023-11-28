@@ -23,14 +23,61 @@ public class DBInit
     public static async void Seed(IApplicationBuilder app)
     {
         using var serviceScope = app.ApplicationServices.CreateScope();
+        var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
+        var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
         HouseDbContext context = serviceScope.ServiceProvider.GetRequiredService<HouseDbContext>();
-        //context.Database.EnsureDeleted();
+        context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
+
+        if (!await roleManager.RoleExistsAsync("Host") || !await roleManager.RoleExistsAsync("Admin") || !await roleManager.RoleExistsAsync("Tenant"))
+        {
+            AddRoles(app);
+        }
+
+        if (!context.Users.Any())
+        {
+            string email = "admin@admin.com";
+            string password = "Admin123,";
+
+            if (await userManager.FindByEmailAsync(email.ToUpper()) == null)
+            {
+                var user = new User
+                {
+                    Email = email,
+                    FirstName = "Admin",
+                    LastName = "Admin",
+                    UserName = email,
+                    NormalizedEmail = email.ToUpper(),
+                    NormalizedUserName = email.ToUpper()
+                };
+
+                await userManager.CreateAsync(user, password);
+
+                await userManager.AddToRoleAsync(user, "Admin");
+            }
+
+            var email1 = "john.h@gmail.com";
+            var user1 = new User
+            {
+                FirstName = "John",
+                LastName = "Hopkins",
+                Email = email1,
+                PhoneNumber = "12345678",
+                NormalizedEmail = email1.ToUpper(),
+                NormalizedUserName = email1.ToUpper(),
+                UserName = email1
+            };
+
+            await userManager.CreateAsync(user1, "JohnH2000,");
+            await userManager.AddToRoleAsync(user1, "Host");
+        }
 
         if (!context.Houses.Any())
         {
-
-            var houses = new List<House>()
+            var user1 = userManager.Users.FirstOrDefault(u => u.FirstName == "John");
+            if (user1 != null)
+            {
+                var houses = new List<House>()
             {
                 new House
                 {
@@ -44,6 +91,7 @@ public class DBInit
                     PricePerNight = 990,
                     Bedrooms = 3,
                     Bathrooms = 2,
+                    UserId = user1.Id
                 },
                 new House
                 {
@@ -57,6 +105,7 @@ public class DBInit
                     PricePerNight = 1190,
                     Bedrooms = 4,
                     Bathrooms = 3,
+                    UserId = user1.Id
                 },
                 new House
                 {
@@ -70,6 +119,7 @@ public class DBInit
                     PricePerNight = 690,
                     Bedrooms = 1,
                     Bathrooms = 1,
+                    UserId = user1.Id
                 },
                 new House
                 {
@@ -83,6 +133,7 @@ public class DBInit
                     PricePerNight = 790,
                     Bedrooms = 2,
                     Bathrooms = 1,
+                    UserId = user1.Id
                 },
                 new House
                 {
@@ -96,10 +147,12 @@ public class DBInit
                     PricePerNight = 490,
                     Bedrooms = 2,
                     Bathrooms = 1,
+                    UserId = user1.Id
                 }
             };
-            context.AddRange(houses);
-            context.SaveChanges();
+                context.AddRange(houses);
+                context.SaveChanges();
+            }
         }
 
         if (!context.Reservations.Any())
