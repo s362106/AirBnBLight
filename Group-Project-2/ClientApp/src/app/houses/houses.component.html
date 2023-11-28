@@ -43,9 +43,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor='let house of filteredHouses'>
+    <tr *ngFor='let house of filteredHouses' routerLink="/house-details/{{ house.HouseId }}" style="cursor: pointer;" >
       <td>
-        <img [src]='house.HouseImageUrl' *ngIf="displayImage" class="rounded-circle img-link" routerLink="/house-details/{{ house.HouseId }}" />
+        <img [src]='house.HouseImageUrl' *ngIf="displayImage" class="rounded-circle img-link"/>
       </td>
       <td>{{ house.HouseId }}</td>
       <td>{{ house.Title }}</td>
@@ -67,30 +67,66 @@
 
 <ul *ngIf="displayCard" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
   <li *ngFor="let house of filteredHouses" class="col">
-    <div class="card">
-      <a routerLink="/house-details/{{ house.HouseId }}">
-        <img src="{{ house.HouseImageUrl }}" alt="{{ house.Title }}" />
-        <div class="content">
-          <div class="d-flex justify-content-between mt-2">
-            <h6 class="house-title">{{ house.Title }}</h6>
-            <h6 class="price">{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</h6>
+      <div class="card">
+          <ng-container *ngIf="!house.BedroomImageUrl && !house.BathroomImageUrl">
+              <img [src]="house.HouseImageUrl" alt="{{ house.Title }}" class="card-img-top" style="height: 30vh; object-fit: cover;" />
+          </ng-container>
+          <ng-container *ngIf="house.BedroomImageUrl || house.BathroomImageUrl">
+              <div [id]="'carouselImages-' + house.HouseId" class="carousel slide">
+                  <div class="carousel-indicators">
+                      <button type="button" [attr.data-bs-target]="'#carouselImages-' + house.HouseId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      <ng-container *ngIf="house.BedroomImageUrl || house.BathroomImageUrl">
+                          <button type="button" [attr.data-bs-target]="'#carouselImages-' + house.HouseId" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      </ng-container>
+                      <ng-container *ngIf="house.BedroomImageUrl && house.BathroomImageUrl">
+                          <button type="button" [attr.data-bs-target]="'#carouselImages-' + house.HouseId" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                      </ng-container>
+                  </div>
+                  <div class="carousel-inner">
+                      <div class="carousel-item active">
+                          <img [src]="house.HouseImageUrl" alt="{{ house.Title }}" class="card-img-top" style="height: 30vh; object-fit: cover;">
+                      </div>
+                      <ng-container *ngIf="house.BedroomImageUrl">
+                          <div class="carousel-item">
+                              <img [src]="house.BedroomImageUrl" alt="Bedroom of the house" class="card-img-top" style="height: 30vh; object-fit: cover;">
+                          </div>
+                      </ng-container>
+                      <ng-container *ngIf="house.BathroomImageUrl">
+                          <div class="carousel-item">
+                              <img [src]="house.BathroomImageUrl" alt="Bathroom of the house" class="card-img-top" style="height: 30vh; object-fit: cover;">
+                          </div>
+                      </ng-container>
+                  </div>
+                  <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carouselImages-' + house.HouseId" data-bs-slide="prev" style="display: flex; align-items: center;">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carouselImages-' + house.HouseId" data-bs-slide="next" style="display: flex; align-items: center;">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  </button>
+              </div>
+          </ng-container>
+          <a routerLink="/house-details/{{ house.HouseId }}">
+              <div class="content">
+                  <div class="d-flex justify-content-between mt-2">
+                      <h6 class="house-title">{{ house.Title }}</h6>
+                      <h6 class="price">{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</h6>
+                  </div>
+                  <div class="house-footer">
+                      <div class="location">
+                          <span>{{ house.Location }}</span>
+                      </div>
+                  </div>
+                  <div class="room-info">
+                      <span>{{ house.Bedrooms }} Bedrooms, </span>
+                      <span>{{ house.Bathrooms }} Bathrooms</span>
+                  </div>
+              </div>
+          </a>
+          <div class="actions">
+              <button class="btn btn-sm btn-secondary rounded-pill my-1" [routerLink]="['/houseform', 'edit', house.HouseId, 'Grid']">Update</button>
+              <button class="btn btn-sm btn-danger rounded-pill" (click)="deleteHouse(house)">Delete</button>
           </div>
-          <div class="house-footer">
-            <div class="location">
-              <span>{{ house.Location }}</span>
-            </div>
-          </div>
-          <div class="room-info">
-            <span>{{ house.Bedrooms }} Bedrooms, </span>
-            <span>{{ house.Bathrooms }} Bathrooms</span>
-          </div>
-        </div>
-      </a>
-      <div class="actions">
-        <button class="btn btn-sm btn-secondary rounded-pill my-1" [routerLink]="['/houseform', 'edit', house.HouseId, 'Grid']">Update</button>
-        <button class="btn btn-sm btn-danger rounded-pill" (click)="deleteHouse(house)">Delete</button>
       </div>
-    </div>
 
   </li>
 </ul>
