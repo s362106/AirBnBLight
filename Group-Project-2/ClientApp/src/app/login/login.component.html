@@ -13,10 +13,10 @@
 
             </div>
         </div>
-        <button class="btn btn-primary rounded-pill w-100 my-2" type="submit">Login</button>
+        <button class="btn btn-primary rounded-pill w-100 my-2" type="submit" [disabled]="loginForm.invalid">Log in</button>
     </form>
     <div class="my-4">
-        <p>Don't have an user? Sign up below</p>
+        <p>Don't have an user? Register below</p>
         <button class="btn btn-secondary rounded-pill w-100" [routerLink]="['/register']">Register</button>
     </div>
 </div>
