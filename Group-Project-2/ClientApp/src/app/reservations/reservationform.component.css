@@ -1,6 +1,6 @@
 body {
 }
-.reservation-info div {
+.reservation-info > div {
   margin-top: 2rem;
   margin-left: 2rem;
 }
@@ -17,4 +17,13 @@ body {
     font-weight: bold;
     font-size: 1.5rem;
     margin-right: 1rem;
+}
+
+dd {
+    font-size: 1.2rem;
+}
+
+img:hover {
+    opacity: 0.9;
+    cursor: pointer;
 }

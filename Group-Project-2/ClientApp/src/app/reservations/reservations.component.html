@@ -35,8 +35,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor='let reservation of filteredReservations'>
-            <td><img [src]='reservation.House?.HouseImageUrl' *ngIf="displayImage" class="rounded-circle" routerLink="/reservation-details/{{ reservation.ReservationId }}"/></td>
+        <tr *ngFor='let reservation of filteredReservations' routerLink="/reservation-details/{{ reservation.ReservationId }}">
+            <td><img [src]='reservation.House?.HouseImageUrl' *ngIf="displayImage" class="rounded-circle" /></td>
             <td>{{ reservation.House?.Title }}</td>
             <td>{{ reservation.DateCreated | date: 'dd-MM-yyyy' }}</td>
             <td>{{ reservation.CheckInDate | date: 'dd-MM-yyyy' }}</td>

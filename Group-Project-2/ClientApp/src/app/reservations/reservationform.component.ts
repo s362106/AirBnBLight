@@ -13,10 +13,14 @@ import { IHouse } from '../houses/house';
 export class ReservationformComponent {
   reservationForm: FormGroup;
   isEditMode: boolean = false;
+  isCreateMode: boolean = false;
   reservationId: number = -1;
   houses: IHouse[] = [];
   numberOfDays: number = 0;
   totalPrice: number = 0;
+  currentDate: string = '';
+  checkIn: string = '';
+  checkOut: string = this.checkIn;
 
   constructor(
     private _formbuilder: FormBuilder,
@@ -75,29 +79,9 @@ export class ReservationformComponent {
     this._router.navigate(['/reservations']);
   }
 
-  ngOnInit(): void {
-    this.getHouses();
-    this._route.params.subscribe(params => {
-      if (params['mode'] === 'create') {
-        this.isEditMode = false; // Create mode
-      } else if (params['mode'] === 'edit') {
-        this.isEditMode = true; // Edit mode
-        this.reservationId = +params['id']; // Convert to number
-        this.loadReservationForEdit(this.reservationId);
-      }
-    });
-    this.reservationForm.get('checkInDate')?.valueChanges.subscribe(() => {
-      this.calculateNumberOfDays();
-    });
-
-    this.reservationForm.get('checkOutDate')?.valueChanges.subscribe(() => {
-      this.calculateNumberOfDays();
-    });
-  }
-
   calculateNumberOfDays() {
-    const checkInDateStr = this.reservationForm?.get('checkInDate')?.value as string;
-    const checkOutDateStr = this.reservationForm?.get('checkOutDate')?.value as string;
+    const checkInDateStr = this.reservationForm?.get('checkInDate')?.value;
+    const checkOutDateStr = this.reservationForm?.get('checkOutDate')?.value;
 
     if (checkInDateStr && checkOutDateStr) {
       const checkInDate = new Date(checkInDateStr);
@@ -107,14 +91,20 @@ export class ReservationformComponent {
         const timeDiff = checkOutDate.getTime() - checkInDate.getTime();
         const numberOfDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
         this.numberOfDays = numberOfDays;
-        this.totalPrice = this.chosenHouse.PricePerNight * numberOfDays;
-        console.log('Number of days:', numberOfDays);
+        this.totalPrice = this.chosenHouse?.PricePerNight * numberOfDays;
       } else {
         console.error('Invalid date strings');
       }
     } else {
       console.error('Invalid date strings');
     }
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 
   loadReservationForEdit(reservationId: number) {
@@ -127,17 +117,14 @@ export class ReservationformComponent {
             checkInDate: this.formatDate(new Date(reservation.CheckInDate)),
             checkOutDate: this.formatDate(new Date(reservation.CheckOutDate)),
           });
+          this.changeHouse(reservation.HouseId);
+          this.totalPrice = reservation.TotalPrice;
+          this.checkIn = reservation.CheckInDate;
+          console.log('Total price: ' + this.totalPrice);
         }, (error: any) => {
           console.error('Error loading reservation for edit:', error);
         }
       );
-  }
-
-  private formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
   }
 
   chosenHouse!: IHouse;
@@ -157,4 +144,34 @@ export class ReservationformComponent {
     }
   }
 
+  ngOnInit(): void {
+    this.getHouses();
+    this._route.params.subscribe(params => {
+      if (params['mode'] === 'create') {
+        this.isEditMode = false; // Create mode
+        this.isCreateMode = true;
+      } else if (params['mode'] === 'edit') {
+        this.isEditMode = true; // Edit mode
+        this.isCreateMode = false;
+        this.reservationId = +params['id']; // Convert to number
+        this.loadReservationForEdit(this.reservationId);
+      }
+    });
+    this.currentDate = this.formatDate(new Date());
+    this.checkIn = this.currentDate;
+    this.reservationForm.get('checkInDate')?.valueChanges.subscribe(() => {
+      this.calculateNumberOfDays();
+      this.checkIn = this.reservationForm?.get('checkInDate')?.value;
+      const checkInDate = this.reservationForm?.get('checkInDate')?.value as Date;
+      const checkOutDate = this.reservationForm?.get('checkOutDate')?.value as Date;
+      if (checkOutDate < checkInDate) {
+        this.reservationForm.get('checkOutDate')?.setValue(this.checkIn);
+      }
+    });
+
+    this.reservationForm.get('checkOutDate')?.valueChanges.subscribe(() => {
+      this.calculateNumberOfDays();
+      this.checkOut = this.reservationForm.get('checkOutDate')?.value;
+    });
+  }
 }

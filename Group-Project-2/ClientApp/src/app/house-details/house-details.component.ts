@@ -15,6 +15,9 @@ export class HouseDetailsComponent implements OnInit {
   reservationForm: FormGroup;
   viewTitle: string = 'Details';
   house!: IHouse;
+  currentDate: string = '';
+  checkIn: string = '';
+  checkOut: string = this.checkIn;
 
   constructor(
     private _formbuilder: FormBuilder,
@@ -28,8 +31,8 @@ export class HouseDetailsComponent implements OnInit {
         this.loadHouse(+params['id'])
     })
     this.reservationForm = _formbuilder.group({
-      checkInDate: [this.formatDate(new Date())],
-      checkOutDate: [this.formatDate(new Date())],
+      checkInDate: [this.formatDate(new Date()), Validators.required],
+      checkOutDate: [this.formatDate(new Date()), Validators.required],
     });
   }
 
@@ -90,6 +93,18 @@ export class HouseDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentDate = this.formatDate(new Date());
+    this.reservationForm.get('checkInDate')?.valueChanges.subscribe(() => {
+      this.checkIn = this.reservationForm?.get('checkInDate')?.value;
+      const checkInDate = this.reservationForm?.get('checkInDate')?.value as Date;
+      const checkOutDate = this.reservationForm?.get('checkOutDate')?.value as Date;
+      if (checkOutDate < checkInDate) {
+        this.reservationForm.get('checkOutDate')?.setValue(this.checkIn);
+      }
+    });
 
+    this.reservationForm.get('checkOutDate')?.valueChanges.subscribe(() => {
+      this.checkOut = this.reservationForm.get('checkOutDate')?.value;
+    });
   }
 }
