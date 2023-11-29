@@ -19,15 +19,15 @@ export class HouseformComponent {
     private _houseService: HouseService
   ) {
     this.houseForm = _formbuilder.group({
-      title: ['', Validators.required],
-      location: [''],
-      pricePerNight: [0, Validators.required],
-      bedrooms: [0, Validators.required],
-      bathrooms: [0, Validators.required],
-      description: [''],
-      houseImageUrl: [''],
-      bedroomImageUrl: [''],
-      bathroomImageUrl: ['']
+      title: ['', [Validators.required, Validators.pattern('[0-9a-zA-ZæøåÆØÅ. \\-]{2,50}')]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
+      houseImageUrl: ['', [Validators.required, Validators.pattern('[https?://\\S+|www\\.\\S+]{10,300}')]],
+      bedroomImageUrl: ['', [Validators.pattern('[https?://\\S+|www\\.\\S+]{10,300}')]],
+      bathroomImageUrl: ['', [Validators.pattern('[https?://\\S+|www\\.\\S+]{10,300}')]],
+      location: ['', [Validators.required, Validators.pattern('^[A-ZÆØÅ][a-zAæøå]{1,25},\\s[A-ZÆØÅ][a-zA-Zæøå]{1,25}$')]],
+      pricePerNight: [0, [Validators.required, Validators.min(0.01)]],
+      bedrooms: [0, [Validators.required, Validators.min(0)]],
+      bathrooms: [0, [Validators.required, Validators.min(0)]]
     });
   }
 
