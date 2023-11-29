@@ -33,6 +33,7 @@ export class ReservationDetailsComponent implements OnInit {
           (response) => {
             if (response.success) {
               console.log(response.message);
+              this._router.navigate(['/reservations']);
             }
           },
           (error) => {
