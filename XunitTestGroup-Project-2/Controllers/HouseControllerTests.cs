@@ -447,19 +447,13 @@ public class HouseControllerTests
         var result = await houseController.Create(testHouse);
 
         // Assert
-        if (result is OkObjectResult)
-        {
-            // Unexpected result type
-            Assert.True(false, $"Unexpected result type: {result.GetType().Name}");
-        }
+        Assert.NotNull(result);
+        Assert.IsAssignableFrom<ObjectResult>(result);
 
-        if (result is BadRequestObjectResult badRequestResult)
-        {
-            // Unsuccessful create
-            var errorMessage = (string)badRequestResult.Value;
-            Assert.Contains("House creation failed", errorMessage, StringComparison.OrdinalIgnoreCase);
-        }
+        var objectResult = Assert.IsAssignableFrom<ObjectResult>(result);
+        Assert.Contains("House creation failed", objectResult.Value.ToString(), StringComparison.OrdinalIgnoreCase);
     }
+
 
 
 
