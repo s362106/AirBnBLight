@@ -61,7 +61,8 @@ public class ItemControllerTests
         var mockHouseRepository = new Mock<IHouseRepository>();
         mockHouseRepository.Setup(repo => repo.GetAll()).ReturnsAsync(houseList);
         var mockLogger = new Mock<ILogger<HouseController>>();
-        var houseController = new HouseController(mockHouseRepository.Object, mockLogger.Object);
+        var mockUserRepo = new Mock<IUserRepository>();
+        var houseController = new HouseController(mockHouseRepository.Object, mockLogger.Object, mockUserRepo.Object);
 
         // act
         var result = await houseController.GetAll();
