@@ -43,7 +43,7 @@
             <td>{{ reservation.CheckOutDate | date: 'dd-MM-yyyy' }}</td>
             <td width="120">{{ reservation.TotalPrice | convertToCurrency: 'kr' }}</td>
             <td id="actions">
-                <a class="btn btn-sm btn-secondary rounded-pill w-100 my-1" [routerLink]="['/reservationform', 'edit', reservation.ReservationId]">Update</a>
+                <a class="btn btn-sm btn-secondary rounded-pill w-100 my-1" [routerLink]="['/reservationform', 'edit', reservation.ReservationId, viewTitle]">Update</a>
                 <a class="btn btn-sm btn-danger rounded-pill w-100 my-1" (click)="deleteReservation(reservation)">Delete</a>
             </td>
         </tr>

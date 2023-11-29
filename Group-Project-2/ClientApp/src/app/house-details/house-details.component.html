@@ -64,17 +64,25 @@
         </div>
     </div>
     <form (ngSubmit)="onSubmit()" [formGroup]="reservationForm" class="col-md-4 shadow-sm">
-        <div class="form-group">
-            <div class="form-floating mb-3 gx-1 mt-3">
-                <input type="date" id="checkInDate" formControlName="checkInDate" class="form-control" />
-                <label for="checkInDate" class="form-label">Check In Date:</label>
-            </div>
-            <div class="form-floating mb-3 gx-1 mt-3">
-                <input type="date" id="checkOutDate" formControlName="checkOutDate" class="form-control" />
-                <label for="checkOutDate" class="form-label">Check Out Date:</label>
-            </div>
+      <div class="form-group">
+        <div class="form-floating mb-3 gx-1 mt-3">
+          <input type="date" id="checkInDate" formControlName="checkInDate" class="form-control" [min]="currentDate" />
+          <label for="checkInDate" class="form-label">Check In Date:</label>
         </div>
-        <button class="btn btn-lg btn-primary rounded-pill w-100" type="submit">Reserve House</button>
+        <div class="form-floating mb-3 gx-1 mt-3">
+          <input type="date" id="checkOutDate" formControlName="checkOutDate" class="form-control" [min]="checkIn" />
+          <label for="checkOutDate" class="form-label">Check Out Date:</label>
+        </div>
+      </div>
+      <button class="btn btn-lg btn-primary rounded-pill w-100" type="submit">Reserve House</button>
+      <div class="mb-3 gx-1 mt-4">
+        <span class="h6">Booking duration: </span>
+        <span class="ms-2">{{ numberOfDays }} days</span>
+      </div>
+      <div class="mb-3 gx-1 mt-4">
+        <span class="h6">Total Price: </span>
+        <span class="ms-2">{{ totalPrice }} kr</span>
+      </div>
     </form>
 </div>
 <div class="mt-3">

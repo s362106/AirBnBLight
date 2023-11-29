@@ -15,6 +15,11 @@ export class HouseDetailsComponent implements OnInit {
   reservationForm: FormGroup;
   viewTitle: string = 'Details';
   house!: IHouse;
+  numberOfDays: number = 0;
+  totalPrice: number = 0;
+  currentDate: string = '';
+  checkIn: string = '';
+  checkOut: string = this.checkIn;
 
   constructor(
     private _formbuilder: FormBuilder,
@@ -28,16 +33,9 @@ export class HouseDetailsComponent implements OnInit {
         this.loadHouse(+params['id'])
     })
     this.reservationForm = _formbuilder.group({
-      checkInDate: [this.formatDate(new Date())],
-      checkOutDate: [this.formatDate(new Date())],
+      checkInDate: [this.formatDate(new Date()), Validators.required],
+      checkOutDate: [this.formatDate(new Date()), Validators.required],
     });
-  }
-
-  private formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
   }
 
   deleteHouse(house: IHouse): void {
@@ -89,7 +87,50 @@ export class HouseDetailsComponent implements OnInit {
     this._router.navigate(['/houses']);
   }
 
-  ngOnInit(): void {
+  calculateNumberOfDays() {
+    const checkInDateStr = this.reservationForm?.get('checkInDate')?.value;
+    const checkOutDateStr = this.reservationForm?.get('checkOutDate')?.value;
 
+    if (checkInDateStr && checkOutDateStr) {
+      const checkInDate = new Date(checkInDateStr);
+      const checkOutDate = new Date(checkOutDateStr);
+
+      if (!isNaN(checkInDate.getTime()) && !isNaN(checkOutDate.getTime())) {
+        const timeDiff = checkOutDate.getTime() - checkInDate.getTime();
+        const numberOfDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        this.numberOfDays = numberOfDays;
+        this.totalPrice = this.house?.PricePerNight * numberOfDays;
+      } else {
+        console.error('Invalid date strings');
+      }
+    } else {
+      console.error('Invalid date strings');
+    }
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
+  ngOnInit(): void {
+    this.currentDate = this.formatDate(new Date());
+    this.checkIn = this.currentDate;
+    this.reservationForm.get('checkInDate')?.valueChanges.subscribe(() => {
+      this.calculateNumberOfDays();
+      this.checkIn = this.reservationForm?.get('checkInDate')?.value;
+      const checkInDate = this.reservationForm?.get('checkInDate')?.value as Date;
+      const checkOutDate = this.reservationForm?.get('checkOutDate')?.value as Date;
+      if (checkOutDate < checkInDate) {
+        this.reservationForm.get('checkOutDate')?.setValue(this.checkIn);
+      }
+    });
+
+    this.reservationForm.get('checkOutDate')?.valueChanges.subscribe(() => {
+      this.calculateNumberOfDays();
+      this.checkOut = this.reservationForm.get('checkOutDate')?.value;
+    });
   }
 }

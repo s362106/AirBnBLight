@@ -33,10 +33,14 @@ tbody tr {
   color: black;
 }
 
-.house-title {
-  font-size: 1.1rem;
-  font-weight: 500;
-}
+  #housecard div a:hover {
+      color: blue;
+  }
+
+  .house-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
 
 .price {
   font-weight: 400;

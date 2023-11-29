@@ -42,7 +42,7 @@ import { ReservationDetailsComponent } from './reservation-details/reservation-d
       { path: 'house-details/:id', component: HouseDetailsComponent },
       { path: 'reservation-details/:id', component: ReservationDetailsComponent },
       { path: 'houseform/:mode/:id/:view', component: HouseformComponent },
-      { path: 'reservationform/:mode/:id', component: ReservationformComponent },
+      { path: 'reservationform/:mode/:id/:view', component: ReservationformComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ])
   ],
