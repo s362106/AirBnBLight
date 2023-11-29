@@ -2,10 +2,7 @@ using Group_Project_2.DAL;
 using Group_Project_2.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using System.Text;
 using Serilog.Events;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -42,6 +39,8 @@ builder.Services.AddDefaultIdentity<User>(options =>
 {
     options.Password.RequireDigit = false;
     options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 4;
+    options.Password.RequireUppercase = false;
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<HouseDbContext>();

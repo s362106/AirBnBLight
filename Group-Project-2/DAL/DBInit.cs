@@ -157,6 +157,8 @@ public class DBInit
 
         if (!context.Reservations.Any())
         {
+            var user1 = userManager.Users.FirstOrDefault(u => u.FirstName == "John");
+            var user2 = userManager.Users.FirstOrDefault(u => u.FirstName == "Admin");
             var reservations = new List<Reservation>
             {
                 new Reservation
@@ -164,14 +166,16 @@ public class DBInit
                     CheckInDate = new DateTime(2023, 09, 28),
                     CheckOutDate = new DateTime(2023, 10, 15),
                     HouseId = 1,
-                    DateCreated = DateTime.Today.AddDays(-25)
+                    DateCreated = DateTime.Today.AddDays(-25),
+                    UserId = user1.Id
                 },
                 new Reservation
                 {
                     CheckInDate = new DateTime(2023, 10, 20),
                     CheckOutDate = new DateTime(2023, 10, 27),
                     HouseId = 2,
-                    DateCreated = DateTime.Today.AddDays(-10)
+                    DateCreated = DateTime.Today.AddDays(-10),
+                    UserId = user2.Id,
                 },
             };
 

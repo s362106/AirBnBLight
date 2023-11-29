@@ -26,23 +26,19 @@
             </div>
         </div>
     </form>
-    <div class="reservation-info row align-items-center">
-          <img *ngIf="chosenHouse" [src]="chosenHouse.HouseImageUrl" [alt]="chosenHouse.Description" class="col-md-4 mb-3 gx-1" />
-          <div class="col-md-8">
-              <div *ngIf="chosenHouse" class="info p-4">
-                  <h5>{{ chosenHouse.Title }}</h5>
-                  <dl class="row col-md-8">
-                      <dt class="col-sm-5"><strong>Price per night</strong> </dt>
-                      <dd class="col-sm-7">{{ chosenHouse.PricePerNight | convertToCurrency : 'kr' }}</dd>
-                      <dt class="col-sm-5"><strong>Booking duration</strong></dt>
-                      <dd class="col-sm-7">{{ numberOfDays }} days</dd>
-                      <hr />
-                      <dt class="col-sm-5"><strong>Total Price</strong> </dt>
-                      <dd class="col-sm-7"><strong>{{ totalPrice  | convertToCurrency : 'kr' }}</strong></dd>
-                  </dl>
-
-              </div>
-          </div>
+    <div *ngIf="chosenHouse" class="reservation-info row align-items-center">
+        <img [src]="chosenHouse.HouseImageUrl" [alt]="chosenHouse.Description" class="col-md-4" routerLink="/house-details/{{ chosenHouse.HouseId }}" />
+        <div class="col-md-8 px-5">
+            <h5>{{ chosenHouse.Title }}</h5>
+            <dl class="row">
+                <dt class="col-sm-9">Price per night</dt>
+                <dd class="col-sm-3">{{ chosenHouse.PricePerNight | convertToCurrency: 'kr' }}</dd>
+                <dt class="col-sm-9">Booking duration</dt>
+                <dd class="col-sm-3">{{ numberOfDays }} days</dd>
+                <dt class="col-sm-9 total"><strong>Total Price</strong></dt>
+                <dd class="col-sm-3 total"><strong>{{ totalPrice | convertToCurrency: 'kr' }}</strong></dd>
+            </dl>
+        </div>
     </div>
     <button *ngIf="isEditMode || isCreateMode" class='btn btn-secondary rounded-pill' (click)="backToReservations()">Cancel</button>
 </div>

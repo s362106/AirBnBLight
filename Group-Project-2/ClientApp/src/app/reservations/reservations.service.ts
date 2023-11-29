@@ -33,7 +33,7 @@ export class ReservationService {
   }
 
   deleteReservation(reservationId: number): Observable<any> {
-    const url = `${this.baseUrl}/delete/${reservationId}`;
+    const url = `${this.baseUrl}/${reservationId}`;
     return this._http.delete(url);
   }
 }

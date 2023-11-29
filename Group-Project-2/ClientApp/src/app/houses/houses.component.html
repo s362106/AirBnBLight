@@ -1,27 +1,26 @@
 <h1 id="tableLabel" class="my-3">List of Houses</h1>
 
-<div class='row mb-3'>
-  <div class="col-md-9">
-    <div class="btn-group btn-group-sm">
-      <a class="btn btn-outline-dark" (click)="showGridView()" [class.active]="displayCard">Grid View</a>
-      <a class="btn btn-outline-dark active" (click)="showTableView()" [class.active]="displayTable">Table View</a>
-    </div>
-  </div>
-  <div class='col-md-3'>
-    <div class="row">
-      <div class='col-md-5'>Filter by title:</div>
-      <div class='col-md-7'>
-        <input type='text' class="form-control"
-               [(ngModel)]='listFilter' />
-      </div>
-    </div>
-  </div>
+
+<div class="btn-group btn-group-sm">
+    <a class="btn btn-outline-dark" (click)="showGridView()" [class.active]="displayCard">Grid View</a>
+    <a class="btn btn-outline-dark active" (click)="showTableView()" [class.active]="displayTable">Table View</a>
 </div>
 
-<div class='row'>
-  <div class='col-md-6'>
-    <h4>Filtered by title: {{listFilter}}</h4>
-  </div>
+<div class='row my-3'>
+    <div class='col-md-9'>
+        <h4>Filtered by House: {{listFilter}}</h4>
+    </div>
+    <div class='col-md-3 align-items-center'>
+        <div class="row">
+            <div class='col-md-5'>
+                <p class="lighter">Filter by title:</p>
+            </div>
+            <div class='col-md-7'>
+                <input type='text' class="form-control"
+                        [(ngModel)]='listFilter' />
+            </div>
+        </div>
+    </div>
 </div>
 
 <table *ngIf="displayTable" class='table table-hover' aria-labelledby="tableLabel">
