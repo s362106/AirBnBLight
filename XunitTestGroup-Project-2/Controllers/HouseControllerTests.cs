@@ -5,12 +5,14 @@ using Moq;
 using Group_Project_2.Controllers;
 using Group_Project_2.DAL;
 using Group_Project_2.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 //using Group_Project_2.ViewModels;
 
 
 namespace XunitTestGroup_Project_2.Controllers;
 
-public class ItemControllerTests
+public class HouseControllerTests
 {
     [Fact]
     public async Task TestTable()
@@ -68,37 +70,53 @@ public class ItemControllerTests
         var result = await houseController.GetAll();
 
         // assert
-        //var viewResult = Assert.IsType<ViewResult>(result);
-        //var houseListViewModel = Assert.IsAssignableFrom<HouseListViewModel>(viewResult.ViewData.Model);
+        //var viewResult = Assert.IsType<List<House>>(result);
+        //var viewHouseList = Assert.IsAssignableFrom<>(viewResult.ViewData.Model);
         //Assert.Equal(2, itemListViewModel.Items.Count());
         //Assert.Equal(houseList, houseListViewModel.Items);
     }
 
-}
-  /* [Fact]
+    [Fact]
     public async Task TestCreateNotOk()
     {
-        // arrange
-        var testItem = new House
+        //arrange
+        var testHouse = new House
         {
-            ItemId = 1,
-            Price = 20,
-            Description = "Delicious spicy chicken wing",
-            ImageUrl = "/images/chickenwing.jpg"
+            HouseId = 1,
+            Title = "Charming cottage on Åsen",
+            Description = "Small charming cottage with charm on Øståsen in Vikersund.",
+            HouseImageUrl = "assets/images/aasen_cottage.jpg",
+            BedroomImageUrl = "assets/images/aasen_bed.jpg",
+            BathroomImageUrl = "assets/images/aasen_bath.jpg",
+            Location = "Modum, Viken, Norway",
+            PricePerNight = 990,
+            Bedrooms = 3,
+            Bathrooms = 2
         };
         var mockHouseRepository = new Mock<IHouseRepository>();
-        mockHouseRepository.Setup(repo => repo.Create(testItem)).ReturnsAsync(false);
+        mockHouseRepository.Setup(repo => repo.Create(testHouse)).ReturnsAsync(false);
+
         var mockLogger = new Mock<ILogger<HouseController>>();
-        var houseController = new HouseController(mockHouseRepository.Object, mockLogger.Object);
+        var mockUserRepo = new Mock<IUserRepository>();
 
-        // act
-        var result = await HouseController.Create(testItem);
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+        {
+            new Claim(ClaimTypes.Email, "john.h@gmail.com"),
+        }, "mock"));
 
-        // assert
-        var viewResult = Assert.IsType<ViewResult>(result);
-        var viewItem = Assert.IsAssignableFrom<House>(viewResult.ViewData.Model);
-        Assert.Equal(testItem, viewItem);
+        var controllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = user }
+        };
+
+        var houseController = new HouseController(mockHouseRepository.Object, mockLogger.Object, mockUserRepo.Object)
+        {
+            ControllerContext = controllerContext
+        };
+
+        //act
+        var result = await houseController.Create(testHouse);
+
     }
 }
-  */
-
+ 

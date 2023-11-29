@@ -6,7 +6,7 @@
         <div class="form-group row">
             <div class="form-floating col-md-4 mb-3 gx-1">
                 <select #houseSelect formControlName="houseId" class="form-select" (change)="changeHouse(houseSelect.value)">
-                    <option value=0>Select a house...</option>
+                    <option value="" disabled selected>Select a house...</option>
                     <option *ngFor="let house of houseSelectList" [value]="house.HouseId">{{ house.Title }}</option>
                 </select>
                 <label for="houseId" class="form-label">HouseId:</label>
@@ -16,7 +16,7 @@
                 <label for="checkInDate" class="form-label">Check In Date:</label>
             </div>
             <div class="form-floating col-md-3 mb-3 gx-1">
-                <input type="date" id="checkOutDate" formControlName="checkOutDate" class="form-control" [min]="checkIn"/>
+                <input type="date" id="checkOutDate" formControlName="checkOutDate" class="form-control" [min]=""/>
                 <label for="checkOutDate" class="form-label">Check Out Date:</label>
             </div>
             <div class="col-md-2">
