@@ -3,34 +3,34 @@
   height: 80px;
 }
 
-ul {
-  padding: 0;
-  list-style-type: none;
+.img-link:hover {
+  opacity: 0.9;
+}
+
+tbody tr {
+  cursor: pointer;
 }
 
 .card {
   border: 1px solid #D3D3D3;
   border-radius: 1rem;
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-  margin: 0.5rem;
   overflow: hidden;
 }
 
-ul li a {
+.card:hover {
+  box-shadow: 0 .30rem .80rem rgba(0, 0, 0, .05);
+}
+
+.card-img-top {
+  height: 250px;
+  object-fit: cover;
+}
+
+#housecard div a {
   display: flex;
   flex-direction: column;
   text-decoration: none;
   color: black;
-}
-
-li div a:hover {
-  cursor: pointer;
-  color: blue;
-}
-
-.content {
-  padding: .5rem 1rem;
-  position: relative;
 }
 
 .house-title {
@@ -42,20 +42,17 @@ li div a:hover {
   font-weight: 400;
 }
 
-.house-footer {
+.card-footer {
+    background-color: white;
+}
+
+.carousel-control-prev, .carousel-control-next {
   display: flex;
   align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.room-info {
-  font-weight: 150;
+.carousel:hover .carousel-control-prev, .carousel:hover .carousel-control-next {
+  opacity: 1; 
 }
-
-.actions {
-  border-top: 1px solid #D3D3D3;
-  padding: 0.3rem 0.8rem;
-}
-
-  .actions button {
-    margin-right: 0.5rem;
-  }
