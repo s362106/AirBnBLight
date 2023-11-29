@@ -14,7 +14,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
 });
 
-// Code from here on derived from: https://github.com/rd003/dotnet-jwt-medium/blob/master/BookStore.Api/Program.cs
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -25,7 +25,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/User/Login";
         options.Cookie.HttpOnly = true;
     });
-// Until here
+
 
 builder.Services.AddHttpContextAccessor();
 

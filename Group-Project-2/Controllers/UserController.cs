@@ -49,9 +49,6 @@ public class UserController : ControllerBase
                 return Unauthorized();
             }
 
-            //var response = new { success = false, message = "Invalid email or Password" };
-
-
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.ProvidedPassword, false, lockoutOnFailure: false);
 
             if (result.Succeeded)
