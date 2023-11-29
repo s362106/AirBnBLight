@@ -74,7 +74,7 @@ export class HouseDetailsComponent implements OnInit {
     this._reservationService.createReservation(newReservation)
       .subscribe(response => {
         if (response.success) {
-          console.log(response.message);
+          console.log(response.message);          
           this._router.navigate(['/reservations']);
         }
         else {
