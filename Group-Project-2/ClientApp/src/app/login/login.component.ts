@@ -35,17 +35,6 @@ export class LoginComponent {
       });
     }
 
-    getme() {
-      this.authService.getMe().subscribe((email: string) => {
-        console.log("Email: ", email);
-      },
-      (error) => {
-        if(error.status === 401) {
-          console.log("User is not authenticated");
-        }
-      })
-    }
-
     logout() {
       localStorage.clear();
       this.authService.logout()
