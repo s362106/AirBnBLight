@@ -29,28 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Content Remove="$(SpaRoot)**" />
-    <None Remove="$(SpaRoot)**" />
-    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-    <None Remove="ViewModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ClientApp\src\app\house-details\house-details.component.ts" />
-    <None Remove="ClientApp\src\app\houses\house.ts" />
-    <None Remove="ClientApp\src\app\houses\houseform.component.ts" />
-    <None Remove="ClientApp\src\app\houses\houses.component.ts" />
-    <None Remove="ClientApp\src\app\houses\houses.service.ts" />
-    <None Remove="ClientApp\src\app\reservation-details\reservation-details.component.ts" />
-    <None Remove="ClientApp\src\app\reservations\reservation.ts" />
-    <None Remove="ClientApp\src\app\reservations\reservationform.component.ts" />
-    <None Remove="ClientApp\src\app\reservations\reservations.component.ts" />
-    <None Remove="ClientApp\src\app\reservations\reservations.service.ts" />
-    <None Remove="ClientApp\src\app\shared\convert-to-currency.pipe.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\house-details\house-details.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -97,7 +75,7 @@
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
-      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
