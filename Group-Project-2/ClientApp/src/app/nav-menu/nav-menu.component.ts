@@ -30,7 +30,7 @@ export class NavMenuComponent {
     this.authService.logout()
       .subscribe(response => {
           if (response.success) {
-            this.router.navigate(["/houses"]);
+            this.router.navigate(["/"]);
             console.log("Response: ", response.message);
         }
       })
