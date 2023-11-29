@@ -27,10 +27,16 @@
         </div>
     </form>
     <div class="reservation-info row">
-        <img *ngIf="chosenHouse" [src]="chosenHouse.HouseImageUrl" [alt]="chosenHouse.Description" class="col-md-4 mb-3 gx-1" />
-        <div *ngIf="chosenHouse" class="col-md-4 gx-1">
-            <span>Total Price: </span>
-            <span>(not implemented yet)</span>
+      <img *ngIf="chosenHouse" [src]="chosenHouse.HouseImageUrl" [alt]="chosenHouse.Description" class="col-md-4 mb-3 gx-1" />
+      <div class="col-md-6">
+        <div *ngIf="chosenHouse" class="col-md-6 gx-1">
+          <span>Booking Duration: </span>
+          <span>{{ numberOfDays }} days</span>
         </div>
+        <div *ngIf="chosenHouse" class="col-md-6 gx-1">
+          <span>Total Price: </span>
+          <span>{{ totalPrice }} kr</span>
+        </div>
+      </div>
     </div>
 </div>

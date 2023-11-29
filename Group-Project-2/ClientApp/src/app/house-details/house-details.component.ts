@@ -85,6 +85,10 @@ export class HouseDetailsComponent implements OnInit {
       });
   }
 
+  backToHouses() {
+    this._router.navigate(['/houses']);
+  }
+
   ngOnInit(): void {
 
   }

@@ -20,7 +20,6 @@ export class ReservationsComponent implements OnInit {
     private _reservationService: ReservationService,
     private _houseService: HouseService) { }
 
-  /*
   private _listFilter: string = '';
   get listFilter(): string {
     return this._listFilter;
@@ -30,7 +29,7 @@ export class ReservationsComponent implements OnInit {
     console.log('In setter:', value);
     this.filteredReservations = this.performFilter(value);
   }
-  */
+  
 
   deleteReservation(reservation: IReservation): void {
     const confirmDelete = confirm(`Are you sure you want to delete "${reservation.ReservationId}"?`);
@@ -70,13 +69,11 @@ export class ReservationsComponent implements OnInit {
     });
   }
 
-  /*
   performFilter(filterBy: string): IReservation[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.reservations.filter((reservation: IReservation) =>
-      reservation.Title.toLocaleLowerCase().includes(filterBy));
+      reservation.House?.Title.toLocaleLowerCase().includes(filterBy));
   }
-  */
 
   toggleImage(): void {
     this.displayImage = !this.displayImage;

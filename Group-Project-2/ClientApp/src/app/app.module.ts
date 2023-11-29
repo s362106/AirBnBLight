@@ -12,7 +12,6 @@ import { HousesComponent } from './houses/houses.component';
 import { HouseformComponent } from './houses/houseform.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ReservationformComponent } from './reservations/reservationform.component';
-import { HousecardComponent } from './housecard/housecard.component';
 import { HouseDetailsComponent } from './house-details/house-details.component';
 import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
 
@@ -26,7 +25,6 @@ import { ReservationDetailsComponent } from './reservation-details/reservation-d
     HouseformComponent,
     ReservationsComponent,
     ReservationformComponent,
-    HousecardComponent,
     HouseDetailsComponent,
     ReservationDetailsComponent
   ],
@@ -39,7 +37,6 @@ import { ReservationDetailsComponent } from './reservation-details/reservation-d
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'houses', component: HousesComponent },
       { path: 'reservations', component: ReservationsComponent },
-      { path: 'housecard', component: HousecardComponent },
       { path: 'houseform', component: HouseformComponent },
       { path: 'reservationform', component: ReservationformComponent },
       { path: 'house-details/:id', component: HouseDetailsComponent },

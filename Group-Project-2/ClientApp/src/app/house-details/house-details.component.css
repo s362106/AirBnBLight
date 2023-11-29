@@ -63,13 +63,3 @@ img {
     font-size: 1.3rem;
     font-weight: bold;
 }
-
-.actions {
-    margin-left: 4.5rem;
-}
-
-.actions button {
-    margin-right: 0.5rem;
-    font-size: 1rem;
-    padding: 0.4rem 1rem;
-}

@@ -15,6 +15,8 @@ export class ReservationformComponent {
   isEditMode: boolean = false;
   reservationId: number = -1;
   houses: IHouse[] = [];
+  numberOfDays: number = 0;
+  totalPrice: number = 0;
 
   constructor(
     private _formbuilder: FormBuilder,
@@ -25,8 +27,8 @@ export class ReservationformComponent {
   ) {
     this.reservationForm = _formbuilder.group({
       houseId: ['', Validators.required],
-      checkInDate: [new Date(), Validators.required],
-      checkOutDate: [new Date(), Validators.required],
+      checkInDate: [this.formatDate(new Date()), Validators.required],
+      checkOutDate: [this.formatDate(new Date()), Validators.required],
     });
   }
 
@@ -84,6 +86,35 @@ export class ReservationformComponent {
         this.loadReservationForEdit(this.reservationId);
       }
     });
+    this.reservationForm.get('checkInDate')?.valueChanges.subscribe(() => {
+      this.calculateNumberOfDays();
+    });
+
+    this.reservationForm.get('checkOutDate')?.valueChanges.subscribe(() => {
+      this.calculateNumberOfDays();
+    });
+  }
+
+  calculateNumberOfDays() {
+    const checkInDateStr = this.reservationForm?.get('checkInDate')?.value as string;
+    const checkOutDateStr = this.reservationForm?.get('checkOutDate')?.value as string;
+
+    if (checkInDateStr && checkOutDateStr) {
+      const checkInDate = new Date(checkInDateStr);
+      const checkOutDate = new Date(checkOutDateStr);
+
+      if (!isNaN(checkInDate.getTime()) && !isNaN(checkOutDate.getTime())) {
+        const timeDiff = checkOutDate.getTime() - checkInDate.getTime();
+        const numberOfDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        this.numberOfDays = numberOfDays;
+        this.totalPrice = this.chosenHouse.PricePerNight * numberOfDays;
+        console.log('Number of days:', numberOfDays);
+      } else {
+        console.error('Invalid date strings');
+      }
+    } else {
+      console.error('Invalid date strings');
+    }
   }
 
   loadReservationForEdit(reservationId: number) {
