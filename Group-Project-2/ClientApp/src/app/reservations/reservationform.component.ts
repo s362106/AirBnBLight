@@ -154,12 +154,12 @@ export class ReservationformComponent {
     this.getHouses();
     this._route.params.subscribe(params => {
       if (params['mode'] === 'create') {
-        this.isEditMode = false; // Create mode
+        this.isEditMode = false; 
         this.isCreateMode = true;
       } else if (params['mode'] === 'edit') {
-        this.isEditMode = true; // Edit mode
+        this.isEditMode = true; 
         this.isCreateMode = false;
-        this.reservationId = +params['id']; // Convert to number
+        this.reservationId = +params['id']; 
         this.loadReservationForEdit(this.reservationId);
       }
     });

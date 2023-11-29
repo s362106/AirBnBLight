@@ -20,7 +20,7 @@ export class HouseformComponent {
   ) {
     this.houseForm = _formbuilder.group({
       title: ['', [Validators.required, Validators.pattern('[0-9a-zA-ZæøåÆØÅ. \\-]{2,50}')]],
-      description: ['', [Validators.required, Validators.minLength(10)]],
+      description: ['', [Validators.required, Validators.minLength(50)]],
       houseImageUrl: ['', [Validators.required, Validators.pattern('[https?://\\S+|www\\.\\S+]{10,300}')]],
       bedroomImageUrl: ['', [Validators.pattern('[https?://\\S+|www\\.\\S+]{10,300}')]],
       bathroomImageUrl: ['', [Validators.pattern('[https?://\\S+|www\\.\\S+]{10,300}')]],
@@ -74,10 +74,10 @@ export class HouseformComponent {
   ngOnInit(): void {
     this._route.params.subscribe(params => {
       if (params['mode'] === 'create') {
-        this.isEditMode = false; // Create mode
+        this.isEditMode = false; 
       } else if (params['mode'] === 'edit') {
-        this.isEditMode = true; // Edit mode
-        this.houseId = +params['id']; // Convert to number
+        this.isEditMode = true; 
+        this.houseId = +params['id']; 
         this.loadHouseForEdit(this.houseId);
       }
     });

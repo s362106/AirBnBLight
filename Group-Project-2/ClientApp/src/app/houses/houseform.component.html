@@ -4,7 +4,7 @@
         <div class="form-group row">
           <div class="form-floating col-md-9 mb-3 gx-1">
             <input type="text" id="title" formControlName="title" class="form-control" />
-            <label for="title">Title:</label>
+            <label for="title">Title</label>
             <span *ngIf="houseForm.get('title')?.hasError('required') && houseForm.get('title')?.touched" class="text-danger">
               * Title is required.
             </span>
@@ -14,7 +14,7 @@
           </div>
           <div class="form-floating col-md-3 mb-3 gx-1">
             <input type="text" id="location" formControlName="location" class="form-control" />
-            <label for="location">Location:</label>
+            <label for="location">Location</label>
             <span *ngIf="houseForm.get('location')?.hasError('required') && houseForm.get('location')?.touched" class="text-danger">
               * Location is required.
             </span>
@@ -26,7 +26,7 @@
         <div class="form-group row">
           <div class="form-floating col-md-4 mb-3 gx-1">
             <input type="number" id="pricePerNight" formControlName="pricePerNight" class="form-control" />
-            <label for="pricePerNight">Price per night:</label>
+            <label for="pricePerNight">Price per night</label>
             <span *ngIf="houseForm.get('pricePerNight')?.hasError('required') && houseForm.get('pricePerNight')?.touched" class="text-danger">
               * Price per night is required.
             </span>
@@ -36,7 +36,7 @@
           </div>
           <div class="form-floating col-md-4 mb-3 gx-1">
             <input type="number" id="bedrooms" formControlName="bedrooms" class="form-control" />
-            <label for="bedrooms">Bedrooms:</label>
+            <label for="bedrooms">Bedrooms</label>
             <span *ngIf="houseForm.get('bedrooms')?.hasError('required') && houseForm.get('bedrooms')?.touched" class="text-danger">
               * Number of bedrooms is required.
             </span>
@@ -46,7 +46,7 @@
           </div>
           <div class="form-floating col-md-4 mb-3 gx-1">
             <input type="number" id="bathrooms" formControlName="bathrooms" class="form-control" />
-            <label for="bathrooms">Bathrooms:</label>
+            <label for="bathrooms">Bathrooms</label>
             <span *ngIf="houseForm.get('bathrooms')?.hasError('required') && houseForm.get('bathrooms')?.touched" class="text-danger">
               * Number of bathrooms is required.
             </span>
@@ -58,7 +58,7 @@
         <div class="form-group row">
           <div class="form-floating gx-1 mb-3">
             <textarea id="description" formControlName="description" class="form-control" style="height: 100px"></textarea>
-            <label for="description">Description:</label>
+            <label for="description">Description</label>
             <span *ngIf="houseForm.get('description')?.hasError('required') && houseForm.get('description')?.touched" class="text-danger">
               * Description is required.
             </span>
@@ -70,7 +70,7 @@
         <div class="form-group row">
           <div class="form-floating col-md-4 mb-3 gx-1">
             <input type="text" id="houseImageUrl" formControlName="houseImageUrl" class="form-control" />
-            <label for="houseImageUrl">House Image URL:</label>
+            <label for="houseImageUrl">House Image URL</label>
             <span *ngIf="houseForm.get('houseImageUrl')?.hasError('required') && houseForm.get('houseImageUrl')?.touched" class="text-danger">
               * House image url is required.
             </span>
@@ -80,14 +80,14 @@
           </div>
           <div class="form-floating col-md-4 mb-3 gx-1">
             <input type="text" id="bedroomImageUrl" formControlName="bedroomImageUrl" class="form-control" />
-            <label for="bedroomImageUrl">Bedroom Image URL:</label>
+            <label for="bedroomImageUrl">Bedroom Image URL</label>
             <span *ngIf="houseForm.get('bedroomImageUrl')?.hasError('pattern') && houseForm.get('bedroomImageUrl')?.touched" class="text-danger">
               * The Image-URL must be a link and be between 10 to 300 characters.
             </span>
           </div>
           <div class="form-floating col-md-4 mb-3 gx-1">
             <input type="text" id="bathroomImageUrl" formControlName="bathroomImageUrl" class="form-control" />
-            <label for="bathroomImageUrl">Bathroom Image URL:</label>
+            <label for="bathroomImageUrl">Bathroom Image URL</label>
             <span *ngIf="houseForm.get('bathroomImageUrl')?.hasError('pattern') && houseForm.get('bathroomImageUrl')?.touched" class="text-danger">
               * The Image-URL must be a link and be between 10 to 300 characters.
             </span>

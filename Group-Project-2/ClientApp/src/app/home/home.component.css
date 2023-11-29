@@ -1,0 +1,9 @@
+.bg-image {
+  background-image: url('https://images.unsplash.com/photo-1574620845949-61a08a005988');
+  background-size: cover;
+  height: 80vh;
+}
+
+.lead, .display-4 {
+  text-shadow: 1px 1px 2px gray;
+}

@@ -39,38 +39,12 @@ export class RegisterComponent {
     .subscribe((response) => {
       if(response.success) {
         console.log("Registration success. User: ", JSON.stringify(info));
-        this.router.navigate(['login'])
+        this.router.navigate(['/login'])
       }
       else {
         console.log("Registration failed. Error: ", response.message);
       }
     })
   }
-  /*
-
-  onSubmit() {
-    console.log("Register form submitted");
-    console.log(this.registerForm.value);
-    const info = this.registerForm.value;
-    this.authService.register(info)
-      .subscribe(
-        (response) => {
-          if (!response.success) {
-            if (response.errors) {
-              // Handle validation errors
-              this.validationErrors = response.errors;
-            } else {
-              console.log("Registration failed. Error: ", response.message);
-            }
-          } else {
-            console.log("Registration success. User: ", info);
-          }
-        },
-        (error) => {
-          console.error("An unexpected error occurred: ", error);
-        }
-      );
-  }
-  */
 }
 
