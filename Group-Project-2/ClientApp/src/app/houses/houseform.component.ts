@@ -21,9 +21,9 @@ export class HouseformComponent {
     this.houseForm = _formbuilder.group({
       title: ['', Validators.required],
       location: [''],
-      pricePerNight: [0, Validators.required],
-      bedrooms: [0, Validators.required],
-      bathrooms: [0, Validators.required],
+      pricePerNight: ['', Validators.required],
+      bedrooms: ['', Validators.required],
+      bathrooms: ['', Validators.required],
       description: [''],
       houseImageUrl: [''],
       bedroomImageUrl: [''],

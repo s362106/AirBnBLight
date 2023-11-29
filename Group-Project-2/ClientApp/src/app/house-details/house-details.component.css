@@ -16,10 +16,9 @@
   object-fit: cover; 
 }
 
-form {
+.reserve {
   border-radius: 3rem;
   padding: 2rem;
-  color: black;
 }
 
 .title {
@@ -56,4 +55,15 @@ form {
 .location span:first-child {
     font-size: 1.3rem;
     font-weight: bold;
+}
+
+dl dt, dl dd {
+  font-weight: 300;
+}
+
+.total {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+  font-weight: bolder;
 }

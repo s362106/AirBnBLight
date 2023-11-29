@@ -2,16 +2,23 @@
     border-radius: 2rem;
 }
 
-.reservation-info span {
-    font-size: 1.2rem;
-}
-
-.h6 {
-  font-weight: bold;
-  margin-right: 2rem;
+h5 {
+  margin-bottom: 2rem;
 }
 
 img:hover {
     opacity: 0.9;
     cursor: pointer;
+}
+
+
+dl > dt, dd {
+  font-weight: 300;
+}
+
+.total {
+  border-top: 1px solid #ccc; 
+  padding-top: 10px; 
+  margin-top: 10px; 
+  font-weight: bold;
 }

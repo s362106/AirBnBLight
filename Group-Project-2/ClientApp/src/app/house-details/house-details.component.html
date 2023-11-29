@@ -63,6 +63,7 @@
             <span>{{ house.Location }}</span>
         </div>
     </div>
+<<<<<<< Updated upstream
     <form (ngSubmit)="onSubmit()" [formGroup]="reservationForm" class="col-md-4 shadow-sm">
       <div class="form-group">
         <div class="form-floating mb-3 gx-1 mt-3">
@@ -84,6 +85,31 @@
         <span class="ms-2">{{ totalPrice | convertToCurrency: 'kr' }}</span>
       </div>
     </form>
+=======
+    <div class="col-md-4 shadow-sm reserve">
+        <form (ngSubmit)="onSubmit()" [formGroup]="reservationForm">
+            <div class="form-group">
+                <div class="form-floating mb-3 gx-1 mt-3">
+                    <input type="date" id="checkInDate" formControlName="checkInDate" class="form-control" [min]="currentDate" />
+                    <label for="checkInDate" class="form-label">Check In Date:</label>
+                </div>
+                <div class="form-floating mb-3 gx-1 mt-3">
+                    <input type="date" id="checkOutDate" formControlName="checkOutDate" class="form-control" [min]="checkIn" />
+                    <label for="checkOutDate" class="form-label">Check Out Date:</label>
+                </div>
+            </div>
+            <button class="btn btn-lg btn-primary rounded-pill w-100" type="submit">Reserve House</button>
+        </form>
+        <dl class="row pt-4">
+            <dt class="col-sm-9">Price per night</dt>
+            <dd class="col-sm-3">{{ house.PricePerNight | convertToCurrency: 'kr' }}</dd>
+            <dt class="col-sm-9">Booking duration</dt>
+            <dd class="col-sm-3">{{ numberOfDays }} days</dd>
+            <dt class="col-sm-9 total"><strong>Total Price</strong> </dt>
+            <dd class="col-sm-3 total"><strong>{{ totalPrice | convertToCurrency: 'kr' }}</strong></dd>
+        </dl>
+    </div>
+>>>>>>> Stashed changes
 </div>
 <div class="mt-3">
     <a class="btn btn-outline-dark rounded-pill" (click)="backToHouses()">Back to Houses</a>
