@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IHouse } from './house';
 import { Router } from '@angular/router';
 import { HouseService } from './houses.service';
+import { AuthService } from '../authentication/auth.service';
 
 @Component({
   selector: 'app-houses-component',
@@ -16,7 +17,8 @@ export class HousesComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _houseService: HouseService) { }
+    private _houseService: HouseService,
+    public authService: AuthService) { }
 
   private _listFilter: string = '';
   get listFilter(): string {
@@ -86,5 +88,9 @@ export class HousesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHouses();
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
   }
 }

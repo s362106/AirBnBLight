@@ -11,17 +11,25 @@ import { RegisterModel } from '../register/registerModel';
 })
 export class AuthService {
   private baseUrl = "api/user";
+  private isLoggedIn = false;
   
   constructor(private http: HttpClient, private router: Router) { }
 
   public login(user: ILoginModel): Observable<any> {
     const url = `${this.baseUrl}/login`;
+    this.isLoggedIn = true;
     return this.http.post(url, user);
   }
 
   public logout(): Observable<any> {
     const url = `${this.baseUrl}/logout`;
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
     return this.http.post(url, "");
+  }
+
+  isAuthenticated(): boolean {
+    return this.isLoggedIn;
   }
 
   public register(user: RegisterModel): Observable<any> {
