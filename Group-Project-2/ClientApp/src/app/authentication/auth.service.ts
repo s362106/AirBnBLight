@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ILoginModel } from '../login/logInModel';
-import { BehaviorSubject, Observable, Subject, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, throwError, tap, of } from 'rxjs';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
 import { RegisterModel } from '../register/registerModel';
 
 @Injectable({
@@ -17,8 +16,15 @@ export class AuthService {
 
   public login(user: ILoginModel): Observable<any> {
     const url = `${this.baseUrl}/login`;
-    this.isLoggedIn = true;
-    return this.http.post(url, user);
+    return this.http.post(url, user).pipe(
+      tap(() => {
+        this.isLoggedIn = true;
+      }),
+      catchError((error) => {
+        console.error('Login failed', error);
+        return of(false); 
+      })
+    );
   }
 
   public logout(): Observable<any> {
