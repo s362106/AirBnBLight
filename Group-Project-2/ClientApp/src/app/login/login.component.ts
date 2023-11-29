@@ -28,21 +28,10 @@ export class LoginComponent {
       .subscribe(response => {
         if(response.success) {
           localStorage.setItem("userEmail", response.userEmail);
-          this.router.navigate(["/houses"]);
+          this.router.navigate(["/"]);
           console.log("userEmail: ", response.userEmail);
         }
         console.log("Response: ", response.message);
       });
     }
-
-    logout() {
-      localStorage.clear();
-      this.authService.logout()
-      .subscribe(response => {
-        if(response.success) {
-          console.log("Response: ", response.message);
-        }
-      })
-    }
 }
-
