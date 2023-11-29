@@ -2,26 +2,26 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
-}
-
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+  font-weight: bold;
 }
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+.nav-item {
+  margin: 0.4rem;
+  font-size: 15px;
+  font-weight: bold;
+  border-bottom: medium solid white;
+}
+
 .link-active {
-  border-bottom: 2px solid blue;
+  border-bottom: medium solid blue;
   color: blue;
 }
 
 .nav-item:not(.link-active):hover {
-  border-bottom: 2px solid blue;
+  border-bottom: medium solid blue;
+  transition: 0.2s;
 }

@@ -2,11 +2,6 @@
     border-radius: 2rem;
 }
 
-.reservation-info span {
-    font-size: 1.2rem;
-}
-
-.h6 {
-  font-weight: bold;
-  margin-right: 2rem;
+h5 {
+    margin-bottom: 2rem;
 }
