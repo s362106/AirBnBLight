@@ -39,7 +39,7 @@ export class ReservationsComponent implements OnInit {
           (response) => {
             if (response.success) {
               console.log(response.message);
-              this.filteredReservations = this.filteredReservations.filter(i => i !== reservation);
+              this._router.navigate(['/reservations']);
             }
           },
           (error) => {

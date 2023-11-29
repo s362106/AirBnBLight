@@ -38,7 +38,7 @@
       <th>Room info</th>
       <th>Description</th>
       <th>Price/night</th>
-      <th>Actions</th>
+      <th *ngIf="isAuthenticated()">Actions</th>
     </tr>
   </thead>
   <tbody>
