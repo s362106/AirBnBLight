@@ -36,6 +36,7 @@ export class HouseformComponent {
     console.log(this.houseForm);
     const newHouse = this.houseForm.value;
     if (this.isEditMode) {
+      console.log("HouseDetails: ", JSON.stringify(this.houseForm.value));
       this._houseService.updateHouse(this.houseId, newHouse)
         .subscribe(response => {
           if (response.success) {
@@ -46,6 +47,7 @@ export class HouseformComponent {
           }
         });
     } else {
+      console.log("HouseDetails: ", JSON.stringify(this.houseForm.value));
       this._houseService.createHouse(newHouse)
         .subscribe(response => {
           if (response.success) {

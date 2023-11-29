@@ -48,7 +48,7 @@ export class HousesComponent implements OnInit {
   getHouses(): void {
     this._houseService.getHouses()
       .subscribe(data => {
-        console.log('All', JSON.stringify(data));
+        //console.log('All', JSON.stringify(data));
         this.houses = data;
         this.filteredHouses = this.houses;
       }

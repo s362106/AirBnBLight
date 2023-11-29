@@ -27,13 +27,13 @@ export class HouseService {
   }
 
   updateHouse(houseId: number, newHouse: any): Observable<any> {
-    const url = `${this.baseUrl}/update/${houseId}`;
+    const url = `${this.baseUrl}/update`;
     newHouse.houseId = houseId;
-    return this._http.put<any>(url, newHouse);
+    return this._http.post<any>(url, newHouse);
   }
 
   deleteHouse(houseId: number): Observable<any> {
-    const url = `${this.baseUrl}/delete/${houseId}`;
+    const url = `${this.baseUrl}/${houseId}`;
     return this._http.delete(url);
   }
 }

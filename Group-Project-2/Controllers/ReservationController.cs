@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,167 +18,111 @@ public class ReservationController : Controller
     public readonly IHouseRepository _houseRepository;
     private readonly HouseDbContext _houseDbContext;
     private readonly ILogger<ReservationController> _logger;
+    private readonly IUserRepository _userRepository;
 
-    public ReservationController(IHouseRepository houseRepository, ILogger<ReservationController> logger, HouseDbContext houseDbContext)
+    public ReservationController(IHouseRepository houseRepository, ILogger<ReservationController> logger, HouseDbContext houseDbContext, IUserRepository userRepository)
     {
         _houseRepository = houseRepository;
         _logger = logger;
         _houseDbContext = houseDbContext;
+        _userRepository = userRepository;
     }
-    /*
-    [Authorize]
-    public async Task<IActionResult> Table()
-    {
-        var reservations = await _houseRepository.GetReservations();
-        if (reservations == null)
-        {
-            _logger.LogError("[ReservationController] Reservation list not found while executing _houseRepository.GetReservations()");
-            return NotFound("Reservation list not found");
-        }
-
-        ReservationListViewModel reservationListViewModel;
-        if (User.IsInRole("Admin"))
-        {
-            reservationListViewModel = new ReservationListViewModel(reservations, "Table");
-            return View(reservationListViewModel);
-        }
-        else
-        {
-            var loggedInUser = await _userManager.GetUserAsync(User);
-
-            var userReservations = reservations.Where(r => r.UserId == loggedInUser.Id).ToList();
-            reservationListViewModel = new ReservationListViewModel(userReservations, "Table");
-            return View(reservationListViewModel);
-        }
-    }
-
-    public async Task<IActionResult> Details(int id)
-    {
-        var reservations = await _houseRepository.GetReservations();
-        var right = reservations?.FirstOrDefault(r => r.ReservationId == id);
-        if (right == null)
-        {
-            _logger.LogError("[ReservationController] Reservation not found for the ReservationId executing {ReservationId:0000}", id);
-            return NotFound("Reservation not found");
-        }
-        return View(right);
-    }
-    */
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAll()
     {
-        var reservations = await _houseRepository.GetReservations(); //unitTest (this is not called?)
-        if (reservations == null)
+        try
         {
-            _logger.LogError("[ReservationController] Reservation list not found while executing _houseRepository.GetReservations()");
-            return NotFound("Reservation list not found");
-        }
-        return Ok(reservations);
-    }
-    /*
-    [HttpGet]
-    [Authorize(Roles = "Host, Tenant")]
-    public async Task<IActionResult> CreateReservation()
-    {
-        var houses = await _houseDbContext.Houses.ToListAsync();
-        var loggedInUser = await _userManager.GetUserAsync(User);
+            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
 
-        if (loggedInUser == null)
-        {
-            return Unauthorized("User not authenticated");
-        }
-
-        var createReservationListViewModel = new CreateReservationViewModel
-        {
-            Reservation = new Reservation {
-                UserId = loggedInUser.Id,
-                DateCreated = DateTime.Now
-            },
-
-            HouseSelectList = houses.Select(house => new SelectListItem
+            if(!string.IsNullOrEmpty(userEmail))
             {
-                Value = house.HouseId.ToString(),
-                Text = house.HouseId.ToString() + ": " + house.Title
-            }).ToList(),
-        };
+                var reservations = await _houseRepository.GetReservations(); //unitTest (this is not called?)
+                var user = await _userRepository.GetUserByEmail(userEmail);
+                var userReservations = reservations?.Where(r => r.UserId == user?.Id);
 
-        return View(createReservationListViewModel);
+                if (reservations == null || user == null)
+                {
+                    _logger.LogError("[ReservationController] Reservation list not found while executing _houseRepository.GetReservations()");
+                    return NotFound("Reservation list not found");
+                }
+                var returnDetails = userReservations?.Select(uR => new
+                {
+                    uR.ReservationId,
+                    uR.CheckInDate,
+                    uR.CheckOutDate,
+                    uR.TotalPrice,
+                    uR.BookingDuration,
+                    uR.DateCreated,
+                    uR.HouseId,
+                });
+
+                return Ok(returnDetails);
+            }
+
+            return Unauthorized();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError("[ReservationController] Error occurred in GetAll(). Error: ", e.Message);
+            return StatusCode(500, new { success = false, message = "An unexpected error occurred while fetching all user reservations." });
+        }
+        
     }
-    */
 
     [HttpPost("create")]
+    [Authorize]
     public async Task<IActionResult> CreateReservation([FromBody] Reservation reservation)
     {
-        var house = _houseDbContext.Houses.Find(reservation.HouseId);
+        var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
 
-        if (house == null)
-        {
-            return BadRequest("House not found");
-        }
-        if (reservation == null)
-        {
-            return BadRequest("Invalid reservation data");
+        if (!string.IsNullOrEmpty(userEmail)) {
+            var user = await _userRepository.GetUserByEmail(userEmail);
+            var house = _houseDbContext.Houses.Find(reservation.HouseId);
+
+            if (house == null || user == null)
+            {
+                return BadRequest("House not found");
+            }
+            if (reservation == null)
+            {
+                return BadRequest("Invalid reservation data");
+            }
+
+            TimeSpan duration = reservation.CheckOutDate - reservation.CheckInDate;
+
+            var newReservation = new Reservation
+            {
+                HouseId = reservation.HouseId,
+                CheckInDate = reservation.CheckInDate,
+                CheckOutDate = reservation.CheckOutDate,
+                BookingDuration = duration.Days,
+                TotalPrice = house.PricePerNight * duration.Days,
+                DateCreated = DateTime.Now,
+                UserId = user.Id
+            };
+
+            bool returnOk = await _houseRepository.CreateReservation(newReservation);
+            if (returnOk)
+            {
+                var response = new { success = true, message = "Reservation " + newReservation.ReservationId + " created successfully" };
+                return Ok(response);
+            }
+            else
+            {
+                var response = new { success = false, message = "Reservation creation failed" };
+                return Ok(response);
+            }
         }
 
-        TimeSpan duration = reservation.CheckOutDate - reservation.CheckInDate;
-
-        var newReservation = new Reservation
-        {
-            HouseId = reservation.HouseId,
-            CheckInDate = reservation.CheckInDate,
-            CheckOutDate = reservation.CheckOutDate,
-            BookingDuration = duration.Days,
-            TotalPrice = house.PricePerNight * duration.Days,
-            DateCreated = DateTime.Now
-        };
-
-        bool returnOk = await _houseRepository.CreateReservation(newReservation);
-        if (returnOk)
-        {
-            var response = new { success = true, message = "Reservation " + newReservation.ReservationId + " created successfully" };
-            return Ok(response);
-        }
-        else
-        {
-            var response = new { success = false, message = "Reservation creation failed" };
-            return Ok(response);
-        }
+        return Unauthorized();
     }
-    /*
-    [HttpGet]
-    [Authorize(Roles = "Tenant, Host")]
-    public async Task<IActionResult> CreateReservationFromId(int houseId)
-    {
-        var loggedInUser = await _userManager.GetUserAsync(User);
-
-        if (loggedInUser == null)
-        {
-            return Unauthorized("User not authenticated");
-        }
-
-        var house = await _houseRepository.GetHouseById(houseId);
-
-        if (house == null)
-        {
-            _logger.LogError("House not found for houseId: {houseId}", houseId);
-
-            return BadRequest("House not found");
-        }
-
-        var newReservation = new Reservation
-        {
-            HouseId = houseId,
-            House = house,
-            UserId = loggedInUser.Id,
-        };
-
-        return View(newReservation);
-    }
-    */
+ 
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetReservaitonbyId(int id)
+    [Authorize]
+    public async Task<IActionResult> GetReservationbyId(int id)
     {
         var reservation = await _houseRepository.GetReservationById(id);
         if (reservation == null)
@@ -187,94 +132,72 @@ public class ReservationController : Controller
         }
         return Ok(reservation);
     }
-    /*
-    [HttpGet]
-    [Authorize(Roles = "Tenant, Host")]
-    public async Task<IActionResult> Update(int id)
-    {
-        var reservation = await _houseRepository.GetReservationById(id);
-        var loggedInUser = await _userManager.GetUserAsync(User);
-        if (reservation == null)
-        {
-            _logger.LogError("[ReservationController] Reservation not found when updating the ReservationId {ReservationId:0000}", id);
-            return BadRequest("Reservation not found for the ReservationId");
-        }
-
-        if (!reservation.UserId.Equals(loggedInUser.Id) && !User.IsInRole("Admin"))
-        {
-            return Unauthorized("You do not have permission to update this reservation.");
-        }
-
-        var houses = await _houseDbContext.Houses.ToListAsync();
-        ViewBag.HouseSelectList = houses.Select(house => new SelectListItem
-        {
-            Value = house.HouseId.ToString(),
-            Text = house.HouseId.ToString() + ": " + house.Title
-        }).ToList();
-
-        return View(reservation);
-    }
-    */
+    
     [HttpPut("update/{id}")]
+    [Authorize]
     public async Task<IActionResult> Update(Reservation reservation)
     {
-        var newHouse = _houseDbContext.Houses.Find(reservation.HouseId);
-        if (newHouse == null)
+        var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+        if (string.IsNullOrEmpty(userEmail))
         {
-            return BadRequest("House not found");
-        }
-        if (reservation == null)
-        {
-            return BadRequest("Invalid reservation data");
+            return BadRequest("User email not found in claims");
         }
 
-        TimeSpan duration = reservation.CheckOutDate - reservation.CheckInDate;
-        reservation.BookingDuration = duration.Days;
-        reservation.TotalPrice = newHouse.PricePerNight * duration.Days;
+        var user = await _userRepository.GetUserByEmail(userEmail);
+        var newHouse = await _houseDbContext.Houses.FindAsync(reservation.HouseId);
+
+        if (newHouse == null || user == null || reservation == null)
+        {
+            return BadRequest("Invalid data: House or user not found, or invalid reservation data");
+        }
+
+        reservation.BookingDuration = (int)(reservation.CheckOutDate - reservation.CheckInDate).TotalDays;
+        reservation.TotalPrice = newHouse.PricePerNight * reservation.BookingDuration;
         reservation.DateCreated = DateTime.Now;
+        reservation.UserId = user.Id;
 
-        bool returnOk = await _houseRepository.UpdateReservation(reservation);
-        if (returnOk)
-        {
-            var response = new { success = true, message = "Reservation " + reservation.ReservationId + " updated successfully" };
-            return Ok(response);
-        }
-        else
-        {
-            var response = new { success = false, message = "Reservation update failed" };
-            return Ok(response);
-        }
-    }
-    /*
-    [HttpGet]
-    [Authorize(Roles = "Tenant, Host, Admin")]
-    public async Task<IActionResult> Delete(int id)
-    {
-        var reservation = await _houseRepository.GetReservationById(id);
-        var loggedInUser = await _userManager.GetUserAsync(User);
-        if (reservation == null)
-        {
-            _logger.LogError("[ReservationController] Reservation not found for the ReservationId {ReservationId:0000}", id);
-            return BadRequest("Reservation not found for the ReservationId");
-        }
+        bool isUpdateSuccessful = await _houseRepository.UpdateReservation(reservation);
 
-        if (!reservation.UserId.Equals(loggedInUser.Id) && !User.IsInRole("Admin"))
+        var response = new
         {
-            return Unauthorized("You do not have permission to delete this reservation");
-        }
-        return View(reservation);
+            success = isUpdateSuccessful,
+            message = isUpdateSuccessful ? $"Reservation {reservation.ReservationId} updated successfully" : "Reservation update failed"
+        };
+
+        return Ok(response);
     }
-    */
-    [HttpDelete]
+
+    
+    [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        bool returnOk = await _houseRepository.DeleteReservation(id);
-        if (!returnOk)
+        var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+        if(!string.IsNullOrEmpty(userEmail))
         {
-            _logger.LogError("[ReservationController] Reservation deletion failed for the ReservationId {ReservationId:0000}", id);
-            return BadRequest("Reservation deletion failed.");
+            var user = await _userRepository.GetUserByEmail(userEmail);
+            var reservation = await _houseRepository.GetReservationById(id);
+
+
+            if (user == null || reservation == null)
+            {
+                _logger.LogError("[ReservationController] User {User} or Reservation {Reservation} are null", user.Id, reservation.ReservationId);
+                return StatusCode(500, new { message = "Reservation or User is null" });
+            }
+
+            if (reservation.UserId == user.Id)
+            {
+                bool returnOk = await _houseRepository.DeleteReservation(id);
+                if (!returnOk)
+                {
+                    _logger.LogError("[ReservationController] Reservation deletion failed for the ReservationId {ReservationId:0000}", id);
+                    return StatusCode(500, new { message = "Reservation deletion failed" });
+                }
+                var response = new { success = true, message = "Reservation " + id.ToString() + " deleted succesfully" };
+                return Ok(response);
+            }
+            return Unauthorized();
         }
-        var response = new { success = true, message = "Reservation " + id.ToString() + " deleted succesfully" };
-        return Ok(response);
+        return Unauthorized();
     }
 }

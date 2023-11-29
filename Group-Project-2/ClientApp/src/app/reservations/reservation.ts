@@ -1,4 +1,5 @@
 import { IHouse } from '../houses/house';
+import { User } from './User';
 export interface IReservation {
   ReservationId: number;
   CheckInDate: Date;
@@ -8,8 +9,6 @@ export interface IReservation {
   DateCreated: Date;
   HouseId: number;
   House?: IHouse;
-  /*
   userId: string;
   user?: User;
-  */
 }

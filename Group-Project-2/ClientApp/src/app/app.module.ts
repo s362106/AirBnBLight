@@ -13,6 +13,9 @@ import { HouseformComponent } from './houses/houseform.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ReservationformComponent } from './reservations/reservationform.component';
 import { HouseDetailsComponent } from './house-details/house-details.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthGuardService } from './authentication/authguard.service';
 import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
 
 @NgModule({
@@ -26,6 +29,8 @@ import { ReservationDetailsComponent } from './reservation-details/reservation-d
     ReservationsComponent,
     ReservationformComponent,
     HouseDetailsComponent,
+    LoginComponent,
+    RegisterComponent,
     ReservationDetailsComponent
   ],
   imports: [
@@ -36,13 +41,15 @@ import { ReservationDetailsComponent } from './reservation-details/reservation-d
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'houses', component: HousesComponent },
-      { path: 'reservations', component: ReservationsComponent },
+      { path: 'reservations', component: ReservationsComponent, canActivate: [AuthGuardService] },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
       { path: 'houseform', component: HouseformComponent },
       { path: 'reservationform', component: ReservationformComponent },
       { path: 'house-details/:id', component: HouseDetailsComponent },
       { path: 'reservation-details/:id', component: ReservationDetailsComponent },
       { path: 'houseform/:mode/:id/:view', component: HouseformComponent },
-      { path: 'reservationform/:mode/:id/:view', component: ReservationformComponent },
+      { path: 'reservationform/:mode/:id/:view', component: ReservationformComponent, canActivate: [AuthGuardService] },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ])
   ],

@@ -25,9 +25,9 @@ namespace Group_Project_2.Models;
     public int HouseId { get; set; }
     public virtual House? House { get; set; } = default!;
 
-    /*
+    
     // Navigation Property
     public string UserId { get; set; } = string.Empty;
     public virtual User? User { get; set; } = default!;
-    */
+    
 }

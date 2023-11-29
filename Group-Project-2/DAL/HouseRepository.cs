@@ -58,6 +58,13 @@ public class HouseRepository : IHouseRepository
     {
         try
         {
+
+            var existingHouse = await _db.Houses.FindAsync(house.HouseId);
+            if (existingHouse != null)
+            {
+                // Detach the existing entity from the context
+                _db.Entry(existingHouse).State = EntityState.Detached;
+            }
             _db.Houses.Update(house);
             await _db.SaveChangesAsync();
             return true;

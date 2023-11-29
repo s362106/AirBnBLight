@@ -45,5 +45,5 @@ public class House
     public string UserId { get; set; } = string.Empty;
     public virtual User? User { get; set; } = default!;
 
-    //public virtual List<Reservation>? Reservations { get; set; }
+    public virtual List<Reservation>? Reservations { get; set; }
 }

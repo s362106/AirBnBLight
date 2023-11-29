@@ -194,7 +194,8 @@ public class UserController : ControllerBase
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                Id = user.Id
             };
 
 
