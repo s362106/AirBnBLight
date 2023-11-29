@@ -51,7 +51,7 @@
     <div class="col-md-8 p-5">
         <span class="title">{{ house.Title }}</span>
         <div class="price">
-            <span>{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</span>
+            <span>{{ house.PricePerNight | convertToCurrency: 'kr / night' }}</span>
         </div>
         <div class="description"><span>{{ house.Description }}</span></div>
         <div class="room-info">
@@ -81,7 +81,7 @@
       </div>
       <div class="mb-3 gx-1 mt-4">
         <span class="h6">Total Price: </span>
-        <span class="ms-2">{{ totalPrice }} kr</span>
+        <span class="ms-2">{{ totalPrice | convertToCurrency: 'kr' }}</span>
       </div>
     </form>
 </div>

@@ -33,7 +33,7 @@
             <div *ngIf="chosenHouse" class="info">
                 <div>
                     <span class="h6">Price per night: </span>
-                    <span>{{ chosenHouse.PricePerNight }} kr</span>
+                    <span>{{ chosenHouse.PricePerNight | convertToCurrency: 'kr' }}</span>
                 </div>
                 <div>
                     <span class="h6">Booking Duration: </span>
@@ -42,7 +42,7 @@
                 <hr />
                 <div>
                     <span class="h6">Total Price: </span>
-                    <span>{{ totalPrice }} kr</span>
+                    <span>{{ totalPrice | convertToCurrency: 'kr' }}</span>
                 </div>
             </div>
       </div>

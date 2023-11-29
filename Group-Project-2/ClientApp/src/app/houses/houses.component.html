@@ -109,7 +109,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="house-title">{{ house.Title }}</h5>
-                        <h6 class="price">{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</h6>
+                        <h6 class="price">{{ house.PricePerNight | convertToCurrency: 'kr / night' }}</h6>
                     </div>
                     <p>{{ house.Location }}</p>
                     <span class="badge rounded-pill bg-light text-dark">{{ house.Bedrooms }} Bedrooms, </span>
