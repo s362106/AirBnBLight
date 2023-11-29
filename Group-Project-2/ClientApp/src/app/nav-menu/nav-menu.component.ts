@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../authentication/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,8 +9,9 @@ import { AuthService } from '../authentication/auth.service';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
   collapse() {
     this.isExpanded = false;
@@ -27,8 +29,9 @@ export class NavMenuComponent {
     localStorage.clear();
     this.authService.logout()
       .subscribe(response => {
-        if (response.success) {
-          console.log("Response: ", response.message);
+          if (response.success) {
+            this.router.navigate(["/"]);
+            console.log("Response: ", response.message);
         }
       })
   }

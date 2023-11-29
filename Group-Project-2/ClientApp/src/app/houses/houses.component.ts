@@ -38,7 +38,7 @@ export class HousesComponent implements OnInit {
           (response) => {
             if (response.success) {
               console.log(response.message);
-              this.filteredHouses = this.filteredHouses.filter(i => i !== house);
+              window.location.reload();
             }
           },
           (error) => {
