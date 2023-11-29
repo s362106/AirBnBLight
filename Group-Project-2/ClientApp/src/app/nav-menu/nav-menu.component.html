@@ -13,28 +13,25 @@
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
            [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/houses']">Houses</a>
-          </li>
-          <li *ngIf="isLoggedIn" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/reservations']">My Reservations</a>
-          </li>
-          <li *ngIf="!isLoggedIn" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['login']">Log in</a>
-          </li>
-          <li *ngIf="!isLoggedIn" class="nav-item" [routerLinkActive]="['/link-active']">
-            <a class="nav-link text-dark" [routerLink]="['register']">Sign Up</a>
-          </li>
-          <li *ngIf="isLoggedIn" class="nav-item" [routerLinkActive]="['/link-active']">
-            <a class="nav-link text-dark" (click)="logout()">Log out</a>
-          </li>
-        </ul>
+          <ul class="navbar-nav flex-grow">
+              <li class="nav-item"
+                  [routerLinkActive]="['link-active']"
+                  [routerLinkActiveOptions]="{ exact: true }">
+                  <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                  <a class="nav-link text-dark" [routerLink]="['/houses']">Houses</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                  <a class="nav-link text-dark" [routerLink]="['/reservations']">My Reservations</a>
+              </li>
+              <li *ngIf="!isAuthenticated()" class="nav-item" [routerLinkActive]="['link-active']">
+                  <a class="nav-link text-dark" [routerLink]="['/login']">Log in</a>
+              </li>
+              <li *ngIf="isAuthenticated()" class="nav-item logout" (click)="logout()">
+                  <a class="nav-link text-danger">Log out</a>
+              </li>
+          </ul>
       </div>
     </div>
   </nav>

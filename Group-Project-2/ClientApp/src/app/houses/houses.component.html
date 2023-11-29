@@ -56,7 +56,7 @@
       <td>{{ house.Description }}</td>
       <td width="120">{{ house.PricePerNight | convertToCurrency: 'kr' }}</td>
 
-      <td>
+      <td *ngIf="isAuthenticated()">
         <a class="btn btn-sm btn-secondary rounded-pill w-100 my-1" [routerLink]="['/houseform', 'edit', house.HouseId, 'Table']">Update</a>
         <a class="btn btn-sm btn-danger rounded-pill w-100" (click)="deleteHouse(house)">Delete</a>
       </td>
@@ -115,7 +115,7 @@
                     <span class="badge rounded-pill bg-light text-dark">{{ house.Bathrooms }} Bathrooms</span>
                 </div>
             </a>
-            <div class="card-footer">
+            <div *ngIf="isAuthenticated()" class="card-footer">
                 <button class="btn btn-sm btn-secondary rounded-pill m-1" [routerLink]="['/houseform', 'edit', house.HouseId, 'Grid']">Update</button>
                 <button class="btn btn-sm btn-danger rounded-pill m-1" (click)="deleteHouse(house)">Delete</button>
             </div>

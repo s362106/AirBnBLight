@@ -4,6 +4,7 @@ import { IHouse } from '../houses/house';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HouseService } from '../houses/houses.service';
 import { ReservationService } from '../reservations/reservations.service';
+import { AuthService } from '../authentication/auth.service';
 
 @Component({
   selector: 'app-house-details-component',
@@ -26,7 +27,8 @@ export class HouseDetailsComponent implements OnInit {
     private _router: Router,
     private _reservationService: ReservationService,
     private _houseService: HouseService,
-    private activatedRoute: ActivatedRoute)
+    private activatedRoute: ActivatedRoute,
+    public authService: AuthService)
   {
     activatedRoute.params.subscribe((params) => {
       if (params.id)
@@ -66,21 +68,31 @@ export class HouseDetailsComponent implements OnInit {
       );
   }
 
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
+  }
+
   onSubmit() {
     console.log("ReservationCreate form submitted:");
     console.log(this.reservationForm);
-    const houseId = this.house.HouseId;
-    const newReservation = { houseId, ...this.reservationForm.value };
-    this._reservationService.createReservation(newReservation)
-      .subscribe(response => {
-        if (response.success) {
-          console.log(response.message);          
-          this._router.navigate(['/reservations']);
-        }
-        else {
-          console.log('Reservation creation failed');
-        }
-      });
+
+    if (this.authService.isAuthenticated()) {
+      const houseId = this.house.HouseId;
+      const newReservation = { houseId, ...this.reservationForm.value };
+
+      this._reservationService.createReservation(newReservation)
+        .subscribe(response => {
+          if (response.success) {
+            console.log(response.message);
+            this._router.navigate(['/reservations']);
+          } else {
+            console.log('Reservation creation failed');
+          }
+        });
+    } else {
+      // Redirect to login page if the user is not authenticated
+      this._router.navigate(['/login']);
+    }
   }
 
   backToHouses() {
