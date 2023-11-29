@@ -32,7 +32,6 @@
           {{ displayImage ? 'Hide' : 'Show' }} Image
         </button>
       </th>
-      <th>HouseId</th>
       <th>Title</th>
       <th>Location</th>
       <th>Room info</th>
@@ -46,7 +45,6 @@
       <td>
         <img [src]='house.HouseImageUrl' *ngIf="displayImage" class="rounded-circle img-link"/>
       </td>
-      <td>{{ house.HouseId }}</td>
       <td>{{ house.Title }}</td>
       <td>{{ house.Location }}</td>
       <td width="160">

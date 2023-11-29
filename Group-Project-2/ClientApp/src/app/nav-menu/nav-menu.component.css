@@ -5,10 +5,6 @@ a.navbar-brand {
   font-weight: bold;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
 .nav-item {
   margin: 0.4rem;
   font-size: 15px;
