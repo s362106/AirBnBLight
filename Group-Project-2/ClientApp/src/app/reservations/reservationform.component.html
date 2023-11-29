@@ -26,14 +26,26 @@
       </div>
     </div>
   </form>
-  <div class="reservation-info row">
-    <img *ngIf="chosenHouse" [src]="chosenHouse.HouseImageUrl" [alt]="chosenHouse.Description" class="col-md-4 mb-3 gx-1" routerLink="/house-details/{{ chosenHouse.HouseId }}" />
-    <dl *ngIf="chosenHouse" class="row col-md-6 p-4">
-      <dt class="col-sm-5 h5"><strong>Booking Duration: </strong></dt>
-      <dd class="col-sm-7">{{ numberOfDays }} days</dd>
-      <dt class="col-sm-5 h5"><strong>Total Price: </strong></dt>
-      <dd class="col-sm-7">{{ totalPrice }} kr</dd>
-    </dl>
-  </div>
-  <button *ngIf="isEditMode || isCreateMode" class='btn btn-secondary rounded-pill' (click)="backToReservations()">Cancel</button>
+
+    <div class="reservation-info row align-items-center">
+      <img *ngIf="chosenHouse" [src]="chosenHouse.HouseImageUrl" [alt]="chosenHouse.Description" class="col-md-4 mb-3 gx-1" routerLink="/house-details/{{ chosenHouse.HouseId }}"/>
+      <div class="col-md-8">
+            <div *ngIf="chosenHouse" class="info">
+                <div>
+                    <span class="h6">Price per night: </span>
+                    <span>{{ chosenHouse.PricePerNight }} kr</span>
+                </div>
+                <div>
+                    <span class="h6">Booking Duration: </span>
+                    <span>{{ numberOfDays }} days</span>
+                </div>
+                <hr />
+                <div>
+                    <span class="h6">Total Price: </span>
+                    <span>{{ totalPrice }} kr</span>
+                </div>
+            </div>
+      </div>
+    </div>
+    <button *ngIf="isEditMode || isCreateMode" class='btn btn-secondary rounded-pill' (click)="backToReservations()">Cancel</button>
 </div>

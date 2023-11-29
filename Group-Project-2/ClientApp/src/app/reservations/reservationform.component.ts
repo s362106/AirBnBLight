@@ -76,7 +76,13 @@ export class ReservationformComponent {
   }
 
   backToReservations() {
-    this._router.navigate(['/reservations']);
+    this._route.params.subscribe(params => {
+      if (params['view'] === 'Table') {
+        this._router.navigate(['/reservations']);
+      } else if (params['view'] === 'Details') {
+        this._router.navigate(['/reservation-details/' + this.reservationId]);
+      }
+    });
   }
 
   calculateNumberOfDays() {
