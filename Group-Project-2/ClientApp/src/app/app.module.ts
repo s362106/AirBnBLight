@@ -48,7 +48,7 @@ import { ReservationDetailsComponent } from './reservation-details/reservation-d
       { path: 'reservationform', component: ReservationformComponent },
       { path: 'house-details/:id', component: HouseDetailsComponent },
       { path: 'reservation-details/:id', component: ReservationDetailsComponent },
-      { path: 'houseform/:mode/:id/:view', component: HouseformComponent },
+      { path: 'houseform/:mode/:id/:view', component: HouseformComponent, canActivate: [AuthGuardService] },
       { path: 'reservationform/:mode/:id/:view', component: ReservationformComponent, canActivate: [AuthGuardService] },
       { path: '**', redirectTo: '', pathMatch: 'full' },
     ])
