@@ -18,6 +18,11 @@ img {
   height: 35rem;
 }
 
+  img:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
+
 .details {
     width: 100%;
     display: flex;
