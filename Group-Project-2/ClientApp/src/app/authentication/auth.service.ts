@@ -37,11 +37,4 @@ export class AuthService {
     const url = `/${this.baseUrl}/register`;
     return this.http.post(url, user);
   }
-
-  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
-  isLoggedIn$ = this.isLoggedInSubject.asObservable();
-
-  setStatus(isLoggedIn: boolean): void {
-    this.isLoggedInSubject.next(isLoggedIn);
-  }
 }
