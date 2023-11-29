@@ -179,10 +179,15 @@ public class UserController : ControllerBase
     {
         try
         {
-            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+            if(string.IsNullOrEmpty(userEmail))
+            {
+                _logger.LogError("[UserController] User not found authenticated");
+                return Unauthorized();
+            }
 
             var user = await _userRepository.GetUserByEmail(userEmail);
-
             if (user == null)
             {
                 _logger.LogError("[UserController] User not found in database");

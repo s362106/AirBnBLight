@@ -77,6 +77,7 @@ public class HouseController : Controller
     }
 
     [HttpGet("{id}")]
+    
     public async Task<IActionResult> GetHousebyId(int id)
     {
         var house = await _houseRepository.GetHouseById(id);

@@ -29,17 +29,4 @@ export class AuthService {
     const url = `/${this.baseUrl}/register`;
     return this.http.post(url, user);
   }
-
-  public getMe(): Observable<any> {
-    const url = `${this.baseUrl}`;
-    return this.http.get<any>(url)
-    .pipe(
-      catchError((error) => {
-        if(error.status === 401) {
-          this.router.navigate(["/login"]);
-        }
-        return throwError(error);
-      })
-    );
-  }
 }
