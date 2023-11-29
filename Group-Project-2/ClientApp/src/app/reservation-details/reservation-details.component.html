@@ -7,7 +7,7 @@
 </h3>
 
 <div class="container row">
-    <img [src]="reservation.House?.HouseImageUrl" [alt]="reservation.House?.Title" class="col-md-6"/>
+    <img [src]="reservation.House?.HouseImageUrl" [alt]="reservation.House?.Title" class="col-md-6" routerLink="/house-details/{{ reservation.HouseId }}" />
     <div class="details col-md-6 p-3">
         <span class="title">{{ reservation.House?.Title }}</span>
         <div class="price">
@@ -21,6 +21,9 @@
         <dl class="row">
             <dt class="col-sm-5"><strong>Location</strong></dt>
             <dd class="col-sm-7">{{reservation.House?.Location}}</dd>
+
+            <dt class="col-sm-5"><strong>Host</strong></dt>
+            <dd class="col-sm-7">{{reservation.House?.User?.FirstName}} {{reservation.House?.User?.LastName}}</dd>
 
             <dt class="col-sm-5"><strong>Date Created</strong></dt>
             <dd class="col-sm-7">{{reservation.DateCreated | date: 'dd-MM-yyyy'}}</dd>

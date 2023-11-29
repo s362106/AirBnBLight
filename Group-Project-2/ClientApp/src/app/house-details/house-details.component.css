@@ -47,7 +47,6 @@
 }
 
 .location {
-    margin: 2rem 2rem 2rem 0;
     display: flex;
     justify-content: space-between;
 }
@@ -57,7 +56,7 @@
     font-weight: bold;
 }
 
-dl dt, dl dd {
+dl dd {
   font-weight: 300;
 }
 
