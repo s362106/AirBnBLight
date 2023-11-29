@@ -34,6 +34,6 @@ export class HouseService {
 
   deleteHouse(houseId: number): Observable<any> {
     const url = `${this.baseUrl}/${houseId}`;
-    return this._http.delete(url);
+    return this._http.delete(url);  
   }
 }

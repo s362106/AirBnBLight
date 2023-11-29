@@ -55,7 +55,7 @@
     <div class="col-md-8 py-4">
         <span class="title">{{ house.Title }}</span>
         <div class="price">
-            <span>{{ house.PricePerNight | convertToCurrency: 'kr' }} / night</span>
+            <span>{{ house.PricePerNight | convertToCurrency: 'kr / night' }}</span>
         </div>
         <div class="description"><span>{{ house.Description }}</span></div>
         <div class="room-info">
@@ -65,6 +65,17 @@
         <div class="location">
             <span>Location</span>
             <span>{{ house.Location }}</span>
+        </div>
+        <div class="contact-host">
+          <span class="h5">Contact Host</span>
+          <dl class="row pt-6">
+            <dt>Name</dt>
+            <dl>{{ house.User?.FirstName }} {{ house.User?.LastName }}</dl>
+            <dt>E-mail</dt>
+            <dl>{{ house.User?.Email }}</dl>
+            <dt>Phone Number</dt>
+            <dl>{{ house.User?.PhoneNumber }}</dl>
+          </dl>
         </div>
         <div *ngIf="isAuthenticated()">
             <a class="btn btn-secondary rounded-pill mx-2" [routerLink]="['/houseform', 'edit', house.HouseId, viewTitle]">Update</a>

@@ -1,3 +1,5 @@
+import { User } from '../reservations/User';
+import { IReservation } from '../reservations/reservation';
 export interface IHouse {
   HouseId: number,
   Title: string,
@@ -9,9 +11,7 @@ export interface IHouse {
   PricePerNight: number,
   Bedrooms: number,
   Bathrooms: number,
-  /*
   UserId: string,
-  user?: User,
-  reservations?: Reservation[];
-  */
+  User?: User,
+  Reservations?: IReservation[];
 }
