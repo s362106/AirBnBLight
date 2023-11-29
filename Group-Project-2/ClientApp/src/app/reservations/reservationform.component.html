@@ -26,17 +26,24 @@
             </div>
         </div>
     </form>
-    <div class="reservation-info row">
-      <img *ngIf="chosenHouse" [src]="chosenHouse.HouseImageUrl" [alt]="chosenHouse.Description" class="col-md-4 mb-3 gx-1" />
-      <div class="col-md-6">
-        <div *ngIf="chosenHouse" class="col-md-6 gx-1">
-          <span>Booking Duration: </span>
-          <span>{{ numberOfDays }} days</span>
-        </div>
-        <div *ngIf="chosenHouse" class="col-md-6 gx-1">
-          <span>Total Price: </span>
-          <span>{{ totalPrice }} kr</span>
-        </div>
-      </div>
+    <div class="reservation-info row align-items-center">
+          <img *ngIf="chosenHouse" [src]="chosenHouse.HouseImageUrl" [alt]="chosenHouse.Description" class="col-md-4 mb-3 gx-1" />
+          <div class="col-md-8">
+                <div *ngIf="chosenHouse" class="info">
+                    <div>
+                        <span class="h6">Price per night: </span>
+                        <span>{{ chosenHouse.PricePerNight }} kr</span>
+                    </div>
+                    <div>
+                        <span class="h6">Booking Duration: </span>
+                        <span>{{ numberOfDays }} days</span>
+                    </div>
+                    <hr />
+                    <div>
+                        <span class="h6">Total Price: </span>
+                        <span>{{ totalPrice }} kr</span>
+                    </div>
+                </div>
+          </div>
     </div>
 </div>
