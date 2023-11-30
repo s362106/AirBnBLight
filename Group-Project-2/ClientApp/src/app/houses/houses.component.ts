@@ -38,7 +38,8 @@ export class HousesComponent implements OnInit {
           (response) => {
             if (response.success) {
               console.log(response.message);
-              window.location.reload();
+              this._router.navigate(['/houses']);
+              this.getHouses();
             }
           },
           (error) => {
