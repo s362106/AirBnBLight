@@ -99,21 +99,14 @@ public class HouseController : Controller
         var user = await _userRepository.GetUserByEmail(userEmail);
         if (house == null || user == null || dbHouse == null)
         {
-            if(house == null)
-            {
-                return BadRequest("Invalid house data");
-            }
-            else if(user == null)
-            {
-                return BadRequest("Invalid user data");
-            }
-            else
-            {
-                return BadRequest("Invalid dbHouse data");
-            }
-            
+            return BadRequest("Invalid house data");
         }
         
+        if(!(dbHouse.UserId == user.Id))
+        {
+            _logger.LogError("[HouseController] Update() unauthorized user.");
+            return Unauthorized();
+        }
         house.UserId = user.Id;
         bool returnOk = await _houseRepository.Update(house);
         if (returnOk)
@@ -134,13 +127,24 @@ public class HouseController : Controller
     [Authorize]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        bool returnOk = await _houseRepository.Delete(id);
-        if (!returnOk)
+        var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+        var house = await _houseRepository.GetHouseById(id);
+        var user = await _userRepository.GetUserByEmail(userEmail);
+        if (house == null || user == null || userEmail == null)
         {
-            _logger.LogError("[HouseController] House deletion failed for the HouseId {HouseId:0000}", id);
-            return BadRequest("House deletion failed");
+            return BadRequest("Invalid house data");
         }
-        var response = new { success = true, message = "House " + id.ToString() + " deleted succesfully" };
-        return Ok(response);
+        if(house.UserId == user.Id)
+        {
+            bool returnOk = await _houseRepository.Delete(id);
+            if (!returnOk)
+            {
+                _logger.LogError("[HouseController] House deletion failed for the HouseId {HouseId:0000}", id);
+                return BadRequest("House deletion failed");
+            }
+            var response = new { success = true, message = "House " + id.ToString() + " deleted succesfully" };
+            return Ok(response);
+        }
+        return Unauthorized();
     }
 }
