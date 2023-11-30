@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Security.Claims;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Group_Project_2.Controllers;
 [ApiController]
 [Route("api/[controller]")]

@@ -64,8 +64,8 @@
         </div>
         <div>
             <dl class="row">
-            <dt class="col-sm-9">Location</dt>
-            <dd class="col-sm-3">{{ house.Location }}</dd>
+                <dt class="col-sm-9">Location</dt>
+                <dd class="col-sm-3">{{ house.Location }}</dd>
             </dl>
             <h4 class="mb-2">Contact Host</h4>
             <dl class="row">
@@ -76,10 +76,6 @@
                 <dt class="col-sm-9">Phone Number</dt>
                 <dd class="col-sm-3">{{ house.User?.PhoneNumber }}</dd>
             </dl>
-        </div>
-        <div *ngIf="isAuthenticated()">
-            <a class="btn btn-secondary rounded-pill mx-2" [routerLink]="['/houseform', 'edit', house.HouseId, viewTitle]">Update</a>
-            <a class="btn btn-danger rounded-pill" (click)="deleteHouse(house)">Delete</a>
         </div>
     </div>
     <div class="col-md-4 shadow-sm reserve">
@@ -105,5 +101,10 @@
             <dd class="col-sm-3 total"><strong>{{ totalPrice | convertToCurrency: 'kr' }}</strong></dd>
         </dl>
     </div>
+</div>
+
+<div *ngIf="isAuthenticated()">
+    <a class="btn btn-secondary rounded-pill mx-2" [routerLink]="['/houseform', 'edit', house.HouseId, viewTitle]">Update</a>
+    <a class="btn btn-danger rounded-pill" (click)="deleteHouse(house)">Delete</a>
 </div>
 

@@ -10,6 +10,7 @@ import { AuthService } from '../authentication/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMessage: string = "";
 
   constructor(private _formBuilder: FormBuilder,
     private router: Router,
@@ -20,18 +21,27 @@ export class LoginComponent {
       });
     }
 
-    onSubmit() {
-      console.log("Login form submitted");
-      console.log(this.loginForm);
-      const credentials = this.loginForm.value;
-      this.authService.login(credentials)
-      .subscribe(response => {
-        if(response.success) {
+  onSubmit() {
+    console.log("Login form submitted");
+    console.log(this.loginForm);
+
+    const credentials = this.loginForm.value;
+    this.authService.login(credentials).subscribe(
+      (response) => {
+        if (response.success) {
           localStorage.setItem("userEmail", response.userEmail);
           this.router.navigate(["/"]);
           console.log("userEmail: ", response.userEmail);
+        } else {
+          this.errorMessage = "Invalid email or password. Try Again.";
+          console.log("Error message:", this.errorMessage);
         }
-        console.log("Response: ", response.message);
-      });
-    }
+      },
+      (error) => {
+        console.error("Error during login:", error);
+        this.errorMessage = "An unexpected error occurred.";
+      }
+    );
+  }
+
 }
