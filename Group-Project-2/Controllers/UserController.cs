@@ -86,7 +86,7 @@ public class UserController : ControllerBase
     [Authorize]
     public IActionResult IsCheckedIn()
     {
-        if (User.Identity.IsAuthenticated)
+        if (User?.Identity?.IsAuthenticated ?? false)
         {
             return Ok("User is authenticated");
         }

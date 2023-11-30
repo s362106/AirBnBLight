@@ -55,6 +55,10 @@ public class HouseController : Controller
     public async Task<IActionResult> Create([FromBody] House house)
     {
         var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+        if(string.IsNullOrEmpty(userEmail))
+        {
+            return BadRequest();
+        }
         var user = await _userRepository.GetUserByEmail(userEmail);
 
         if (house == null || user == null || userEmail == null)
@@ -95,6 +99,11 @@ public class HouseController : Controller
     public async Task<IActionResult> Update(House house)
     {
         var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+        if(string.IsNullOrEmpty(userEmail))
+        {
+            return Unauthorized();
+        }
+
         var dbHouse = await _houseRepository.GetHouseById(house.HouseId);
         var user = await _userRepository.GetUserByEmail(userEmail);
         if (house == null || user == null || dbHouse == null)
@@ -128,6 +137,10 @@ public class HouseController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+        if (string.IsNullOrEmpty(userEmail))
+        {
+            return Unauthorized();
+        }
         var house = await _houseRepository.GetHouseById(id);
         var user = await _userRepository.GetUserByEmail(userEmail);
         if (house == null || user == null || userEmail == null)
