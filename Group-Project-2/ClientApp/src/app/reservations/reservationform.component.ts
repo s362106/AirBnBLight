@@ -66,7 +66,7 @@ export class ReservationformComponent {
         .subscribe(response => {
           if (response.success) {
             console.log(response.message);
-            this._router.navigate(['/reservations']);
+            this._router.navigate(['/reservations/form']);
           }
           else {
             console.log('Reservation creation failed');

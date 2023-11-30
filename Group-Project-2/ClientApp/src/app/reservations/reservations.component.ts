@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IReservation } from './reservation';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReservationService } from './reservations.service';
 import { HouseService } from '../houses/houses.service';
 
@@ -18,7 +18,8 @@ export class ReservationsComponent implements OnInit {
   constructor(
     private _router: Router,
     private _reservationService: ReservationService,
-    private _houseService: HouseService) { }
+    private _houseService: HouseService,
+    private route: ActivatedRoute) { }
 
   private _listFilter: string = '';
   get listFilter(): string {
@@ -85,5 +86,8 @@ export class ReservationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getReservations();
+    this.route.params.subscribe(data => {
+      this.getReservations();
+    });
   }
 }
