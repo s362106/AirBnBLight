@@ -101,21 +101,14 @@ export class HouseDetailsComponent implements OnInit {
   }
 
   calculateNumberOfDays() {
-    const checkInDateStr = this.reservationForm?.get('checkInDate')?.value;
-    const checkOutDateStr = this.reservationForm?.get('checkOutDate')?.value;
+    const checkInDate = new Date(this.reservationForm?.get('checkInDate')?.value);
+    const checkOutDate = new Date(this.reservationForm?.get('checkOutDate')?.value);
 
-    if (checkInDateStr && checkOutDateStr) {
-      const checkInDate = new Date(checkInDateStr);
-      const checkOutDate = new Date(checkOutDateStr);
-
-      if (!isNaN(checkInDate.getTime()) && !isNaN(checkOutDate.getTime())) {
-        const timeDiff = checkOutDate.getTime() - checkInDate.getTime();
-        const numberOfDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        this.numberOfDays = numberOfDays;
-        this.totalPrice = this.house?.PricePerNight * numberOfDays;
-      } else {
-        console.error('Invalid date strings');
-      }
+    if (!isNaN(checkInDate.getTime()) && !isNaN(checkOutDate.getTime())) {
+      const timeDiff = checkOutDate.getTime() - checkInDate.getTime();
+      const numberOfDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      this.numberOfDays = numberOfDays;
+      this.totalPrice = this.house?.PricePerNight * numberOfDays;
     } else {
       console.error('Invalid date strings');
     }
