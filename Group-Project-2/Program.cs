@@ -42,7 +42,6 @@ builder.Services.AddDefaultIdentity<User>(options =>
     options.Password.RequiredLength = 4;
     options.Password.RequireUppercase = false;
 })
-    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<HouseDbContext>();
 
 builder.Services.AddScoped<IHouseRepository, HouseRepository>();

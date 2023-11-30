@@ -17,50 +17,11 @@
             </div>
             <div class='col-md-7'>
                 <input type='text' class="form-control"
-                        [(ngModel)]='listFilter' />
+                       [(ngModel)]='listFilter' />
             </div>
         </div>
     </div>
 </div>
-
-<table *ngIf="displayTable" class='table table-hover' aria-labelledby="tableLabel">
-  <thead>
-    <tr>
-      <th>
-        <button class='btn btn-sm btn-dark rounded-pill text-nowrap'
-                (click)='toggleImage()'>
-          {{ displayImage ? 'Hide' : 'Show' }} Image
-        </button>
-      </th>
-      <th>Title</th>
-      <th>Location</th>
-      <th>Room info</th>
-      <th>Description</th>
-      <th>Price/night</th>
-      <th *ngIf="isAuthenticated()">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor='let house of filteredHouses' routerLink="/house-details/{{ house.HouseId }}" >
-      <td>
-        <img [src]='house.HouseImageUrl' *ngIf="displayImage" class="rounded-circle img-link"/>
-      </td>
-      <td>{{ house.Title }}</td>
-      <td>{{ house.Location }}</td>
-      <td width="160">
-        <span class="badge rounded-pill bg-light text-dark">{{ house.Bedrooms }} Bedrooms</span><br />
-        <span class="badge rounded-pill bg-light text-dark">{{ house.Bathrooms }} Bathrooms</span>
-      </td>
-      <td>{{ house.Description }}</td>
-      <td width="120">{{ house.PricePerNight | convertToCurrency: 'kr' }}</td>
-
-      <td *ngIf="isAuthenticated()">
-        <a class="btn btn-sm btn-secondary rounded-pill w-100 my-1" [routerLink]="['/houseform', 'edit', house.HouseId, 'Table']">Update</a>
-        <a class="btn btn-sm btn-danger rounded-pill w-100" (click)="deleteHouse(house)">Delete</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
 
 <div id="housecard" *ngIf="displayCard" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
     <div *ngFor="let house of filteredHouses" class="col">
@@ -120,5 +81,44 @@
         </div>
     </div>
 </div>
+
+<table *ngIf="displayTable" class='table table-hover' aria-labelledby="tableLabel">
+    <thead>
+        <tr>
+            <th>
+                <button class='btn btn-sm btn-dark rounded-pill text-nowrap'
+                        (click)='toggleImage()'>
+                    {{ displayImage ? 'Hide' : 'Show' }} Image
+                </button>
+            </th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Room info</th>
+            <th>Description</th>
+            <th>Price/night</th>
+            <th *ngIf="isAuthenticated()">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let house of filteredHouses' routerLink="/house-details/{{ house.HouseId }}">
+            <td>
+                <img [src]='house.HouseImageUrl' *ngIf="displayImage" class="rounded-circle img-link" />
+            </td>
+            <td>{{ house.Title }}</td>
+            <td>{{ house.Location }}</td>
+            <td width="160">
+                <span class="badge rounded-pill bg-light text-dark">{{ house.Bedrooms }} Bedrooms</span><br />
+                <span class="badge rounded-pill bg-light text-dark">{{ house.Bathrooms }} Bathrooms</span>
+            </td>
+            <td>{{ house.Description }}</td>
+            <td width="120">{{ house.PricePerNight | convertToCurrency: 'kr' }}</td>
+
+            <td *ngIf="isAuthenticated()">
+                <a class="btn btn-sm btn-secondary rounded-pill w-100 my-1" [routerLink]="['/houseform', 'edit', house.HouseId, 'Table']">Update</a>
+                <a class="btn btn-sm btn-danger rounded-pill w-100" (click)="deleteHouse(house)">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 <button *ngIf="isAuthenticated()" class='btn btn-primary rounded-pill my-5' [routerLink]="['/houseform', 'create', -1, displayTable ? 'Table' : 'Grid']">Create New House</button>

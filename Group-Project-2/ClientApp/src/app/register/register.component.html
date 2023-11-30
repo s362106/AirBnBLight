@@ -1,5 +1,5 @@
 <div class="container p-5 shadow-sm col-md-8">
-    <h2 class="mb-3">Register new account</h2>
+    <h2 class="mb-3">Register</h2>
 
     <form class="mb-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-group row">
@@ -35,7 +35,7 @@
             <span *ngIf="registerForm.get('Password')?.hasError('min') && registerForm.get('Password')?.touched" class="text text-danger">
                 Password must be at least 8 characters.
             </span>
-            <span *ngIf="matchingError" class="text text-danger">Two passwords must match</span>
+            <span *ngIf="matchingError" class="text text-danger">The passwords does not match.</span>
         </div>
         <button class="btn btn-primary rounded-pill" type="submit" [disabled]="registerForm.invalid">Create Account</button>
         <button class="btn btn-secondary rounded-pill mx-2" type="button" [routerLink]="['houses']">Back to house listings</button>
