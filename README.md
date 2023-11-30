@@ -13,9 +13,14 @@
 ```
 
 
-### **User**: 
+### **User John**: 
 ```
-John with role Host
 1. Email: john.h@gmail.com
 2. Password: JohnH2000,
+```
+
+### **User Sarah**: 
+```
+1. Email: sarah.t@gmail.com
+2. Password: SarahT2000,
 ```

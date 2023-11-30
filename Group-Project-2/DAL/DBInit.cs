@@ -66,7 +66,7 @@ public class DBInit
         {
             var user1 = userManager.Users.FirstOrDefault(u => u.FirstName == "John");
             var user2 = userManager.Users.FirstOrDefault(u => u.FirstName == "Sarah");
-            if (user1 != null)
+            if (user1 != null && user2 != null)
             {
                 var houses = new List<House>()
             {
@@ -150,7 +150,9 @@ public class DBInit
         {
             var user1 = userManager.Users.FirstOrDefault(u => u.FirstName == "John");
             var user2 = userManager.Users.FirstOrDefault(u => u.FirstName == "Admin");
-            var reservations = new List<Reservation>
+            if (user1 != null && user2 != null)
+            {
+                var reservations = new List<Reservation>
             {
                 new Reservation
                 {
@@ -170,18 +172,21 @@ public class DBInit
                 },
             };
 
-            foreach (var reservation in reservations)
-            {
-                var house = context.Houses.Find(reservation.HouseId);
-                if (house != null)
+
+
+                foreach (var reservation in reservations)
                 {
-                    TimeSpan duration = reservation.CheckOutDate - reservation.CheckInDate;
-                    reservation.BookingDuration = duration.Days;
-                    reservation.TotalPrice = reservation.BookingDuration * house.PricePerNight;
+                    var house = context.Houses.Find(reservation.HouseId);
+                    if (house != null)
+                    {
+                        TimeSpan duration = reservation.CheckOutDate - reservation.CheckInDate;
+                        reservation.BookingDuration = duration.Days;
+                        reservation.TotalPrice = reservation.BookingDuration * house.PricePerNight;
+                    }
                 }
+                context.AddRange(reservations);
+                context.SaveChanges();
             }
-            context.AddRange(reservations);
-            context.SaveChanges();
         }
     }
 }
