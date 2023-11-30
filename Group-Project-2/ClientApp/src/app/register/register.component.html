@@ -12,7 +12,7 @@
                 <label for="LastName" class="form-label">Last Name</label>
             </div>
             <div class="form-floating mb-3 col-md-4 gx-1">
-                <input type="text" id="PhoneNumber" formControlName="PhoneNumber" class="form-control" />
+                <input type="tel" id="PhoneNumber" formControlName="PhoneNumber" class="form-control" />
                 <label for="PhoneNumber" class="form-label">Phone number</label>
             </div>
         </div>
@@ -21,7 +21,9 @@
                 <input type="email" id="Email" formControlName="Email" class="form-control" />
                 <label for="Email">Email</label>
             </div>
-            <span *ngIf="matchingError" class="text text-danger">Two passwords must match</span>
+            <span *ngIf="registerForm.get('Email')?.hasError('email') && registerForm.get('Email')?.touched" class="text text-danger">
+                Invalid email format.
+            </span>
             <div class="form-floating mb-3 gx-1">
                 <input type="password" id="Password" formControlName="Password" class="form-control" />
                 <label for="Password">Password</label>
@@ -29,7 +31,11 @@
             <div class="form-floating mb-3 gx-1">
                 <input type="password" id="ConfirmPassword" formControlName="ConfirmPassword" class="form-control" />
                 <label for="ConfirmPassword">Confirm Password</label>
-                </div>
+            </div>
+            <span *ngIf="registerForm.get('Password')?.hasError('min') && registerForm.get('Password')?.touched" class="text text-danger">
+                Password must be at least 8 characters.
+            </span>
+            <span *ngIf="matchingError" class="text text-danger">Two passwords must match</span>
         </div>
         <button class="btn btn-primary rounded-pill" type="submit" [disabled]="registerForm.invalid">Create Account</button>
         <button class="btn btn-secondary rounded-pill mx-2" type="button" [routerLink]="['houses']">Back to house listings</button>
