@@ -179,7 +179,7 @@ public class ReservationController : Controller
 
             if (user == null || reservation == null)
             {
-                _logger.LogError("[ReservationController] User {User} or Reservation {Reservation} are null", user.Id, reservation.ReservationId);
+                _logger.LogError("[ReservationController] User {User} or Reservation {Reservation} are null", user?.Id, reservation?.ReservationId);
                 return StatusCode(500, new { message = "Reservation or User is null" });
             }
 
