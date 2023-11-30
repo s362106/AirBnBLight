@@ -53,7 +53,6 @@ public class UserController : ControllerBase
 
             if (result.Succeeded)
             {
-                var role = await _userManager.GetRolesAsync(user);
                 var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Email, user.Email)

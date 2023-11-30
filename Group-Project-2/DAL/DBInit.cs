@@ -5,34 +5,14 @@ using System.Runtime.Intrinsics.X86;
 namespace Group_Project_2.DAL;
 public class DBInit
 {
-    public static async void AddRoles(IApplicationBuilder app)
-    {
-        using var serviceScope = app.ApplicationServices.CreateScope();
-        var roleManager =
-            serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-        var roles = new[] { "Admin", "Host", "Tenant" };
-
-        foreach (var role in roles)
-        {
-            if (!await roleManager.RoleExistsAsync(role))
-                await roleManager.CreateAsync(new IdentityRole(role));
-        }
-    }
 
     public static async void Seed(IApplicationBuilder app)
     {
         using var serviceScope = app.ApplicationServices.CreateScope();
         var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
-        var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
         HouseDbContext context = serviceScope.ServiceProvider.GetRequiredService<HouseDbContext>();
         context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
-
-        if (!await roleManager.RoleExistsAsync("Host") || !await roleManager.RoleExistsAsync("Admin") || !await roleManager.RoleExistsAsync("Tenant"))
-        {
-            AddRoles(app);
-        }
 
         if (!context.Users.Any())
         {
@@ -52,8 +32,6 @@ public class DBInit
                 };
 
                 await userManager.CreateAsync(user, password);
-
-                await userManager.AddToRoleAsync(user, "Admin");
             }
 
             var email1 = "john.h@gmail.com";
@@ -69,12 +47,25 @@ public class DBInit
             };
 
             await userManager.CreateAsync(user1, "JohnH2000,");
-            await userManager.AddToRoleAsync(user1, "Host");
+            var email2 = "sarah.t@gmail.com";
+            var user2 = new User
+            {
+                FirstName = "Sarah",
+                LastName = "Tucker",
+                Email = email2,
+                PhoneNumber = "98765432",
+                NormalizedEmail = email2.ToUpper(),
+                NormalizedUserName = email2.ToUpper(),
+                UserName = email2
+            };
+
+            await userManager.CreateAsync(user2, "SarahT2000,");
         }
 
         if (!context.Houses.Any())
         {
             var user1 = userManager.Users.FirstOrDefault(u => u.FirstName == "John");
+            var user2 = userManager.Users.FirstOrDefault(u => u.FirstName == "Sarah");
             if (user1 != null)
             {
                 var houses = new List<House>()
@@ -119,7 +110,7 @@ public class DBInit
                     PricePerNight = 690,
                     Bedrooms = 1,
                     Bathrooms = 1,
-                    UserId = user1.Id
+                    UserId = user2.Id
                 },
                 new House
                 {
@@ -133,7 +124,7 @@ public class DBInit
                     PricePerNight = 790,
                     Bedrooms = 2,
                     Bathrooms = 1,
-                    UserId = user1.Id
+                    UserId = user2.Id
                 },
                 new House
                 {
